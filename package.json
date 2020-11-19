@@ -1,0 +1,25 @@
+{
+  "name": "prisma-group8",
+  "version": "1.0.0",
+  "description": "Prisma API pour le projet API Plateform - VueJS - PRISMA/GRAPHQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e js,graphql src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/5iw-pa/esgi-2020-5iw-pa-prisma.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/5iw-pa/esgi-2020-5iw-pa-prisma/issues"
+  },
+  "homepage": "https://gitlab.com/5iw-pa/esgi-2020-5iw-pa-prisma#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "graphql-yoga": "^1.18.3",
+    "nodemon": "^2.0.6"
+  }
+}
