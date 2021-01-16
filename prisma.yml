@@ -1,6 +1,12 @@
-endpoint: http://localhost:4466
-datamodel: datamodel.prisma
+endpoint: ${env:DATABASE_URL}
+datamodel: datamodel-1610661766670.prisma
 
 generate:
   - generator: javascript-client
     output: ./generated/prisma-client/
+
+hooks:
+  post-deploy:
+    - echo "Deployment finished"
+    - graphql get-schema --project prisma
+    - graphql codegen
