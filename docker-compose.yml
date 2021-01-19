@@ -1,5 +1,19 @@
 version: '3'
 services:
+
+  dbtest:
+    image: 'postgres:12-alpine'
+    volumes:
+      - '../esgi-2020-5iw-pa-apiplatform/docker/postgresql/data:/var/lib/postgresql/data'
+    ports:
+      - '5432:5432'
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_DB=apiplatform
+      - POSTGRES_USER=apiplatform
+      - POSTGRES_PASSWORD=apiplatform
+
+
   prisma:
     image: prismagraphql/prisma:1.34
     restart: always
@@ -13,7 +27,7 @@ services:
         databases:
           default:
             connector: postgres
-            host: host.docker.internal
+            host: dbtest
             database: apiplatform
             schema: public
             user: apiplatform
@@ -21,4 +35,11 @@ services:
             ssl: false
             rawAccess: true
             port: '5432'
-            migrations: false
+            migrations: true
+
+  adminer_554:
+    container_name: adminer_554-apiplatform
+    image: adminer
+    restart: always
+    ports:
+      - 8090:8080

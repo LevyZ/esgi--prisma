@@ -1,0 +1,19 @@
+# import User, Query.user, Query.users, Mutation.updateUser, Mutation.createUser, Mutation.deleteUser, from "./generated/prisma.graphql"
+# import Post, Query.post, Query.posts, Mutation.updatePost, Mutation.createPost, Mutation.deletePost, from "./generated/prisma.graphql"
+
+
+# type day{
+#     id: ID! @unique
+#     name: String!
+# }
+
+
+# type Mutation {
+#     signup(name: String!, email: String!, password: String!): AuthPayload!
+#     login(email: String!, password: String!): AuthPayload!
+# }
+
+# type AuthPayload {
+#     token: String!
+#     user: User!
+# }

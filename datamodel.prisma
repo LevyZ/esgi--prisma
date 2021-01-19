@@ -1,4 +1,107 @@
-type Test @db(name: "test") {
+type day{
+    id: Int! @id
+    name: String!
+}
+
+type appointment{
+    id: Int! @id
+    createdAt: DateTime! @createdAt @db(name: "created_at")
+    deletedAt: DateTime @db(name: "deleted_at")
+    endHour: DateTime @db(name: "end_hour")
+    startHour: DateTime @db(name: "start_hour")
+    updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+}
+
+type department{
   id: Int! @id
-  nom: String!
+  departmentCode: Int @db(name: "department_code")
+  name: String
+}
+
+type establishment {
+  id: Int! @id
+  active: Boolean! @default(value: false)
+  address: String
+  addressComplement: String @db(name: "address_complement")
+  city: String
+  commercialName: String @db(name: "commercial_name")
+  contactEmail: String @db(name: "contact_email")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  description: String
+  illustration: String
+  name: String
+  phoneNumber: String @db(name: "phone_number")
+  siret: String
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  zipCode: String @db(name: "zip_code")
+}
+
+type hour @db(name: "hours"){
+  id: Int! @id
+  active: Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  endHour: DateTime @db(name: "end_hour")
+  nbBarber: Int @db(name: "nb_barber")
+  startHour: DateTime @db(name: "start_hour")
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+}
+
+
+type report{
+  id: Int! @id
+  content: String
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  title: String
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+}
+
+type review {
+  id: Int! @id
+  content: String
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  mark: Int
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at") 
+}
+
+type service {
+  id: Int! @id
+  active: Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  duration: Int
+  illustration: String
+  name: String
+  price: Float
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+}
+
+type typeofshift @db(name: "type_of_shift") {
+  id: Int! @id
+  name: String
+}
+
+type user {
+  id: Int! @id
+  active: Boolean! @default(value: false)
+  birthdate: DateTime
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  email: String! @unique
+  firstname: String
+  gender: String
+  lastname: String
+  password: String!
+  phoneNumber: String @db(name: "phone_number")
+  roles: Json!
+  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+}
+
+
+type userestablishment @db(name: "user_establishment") {
+  id: Int! @id
+  deletedAt: DateTime @db(name: "deleted_at")
+  validated: Boolean
 }
