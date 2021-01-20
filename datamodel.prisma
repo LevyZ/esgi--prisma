@@ -1,4 +1,4 @@
-type day{
+type day {
     id: Int! @id
     name: String!
 }
@@ -18,7 +18,7 @@ type department{
   name: String
 }
 
-type establishment {
+type Establishment @db(name: "establishment"){
   id: Int! @id
   active: Boolean! @default(value: false)
   address: String

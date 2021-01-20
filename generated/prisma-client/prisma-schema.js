@@ -15,7 +15,7 @@ type Aggregatedepartment {
   count: Int!
 }
 
-type Aggregateestablishment {
+type AggregateEstablishment {
   count: Int!
 }
 
@@ -389,7 +389,7 @@ input departmentWhereUniqueInput {
   id: Int
 }
 
-type establishment {
+type Establishment {
   id: Int!
   active: Boolean!
   address: String
@@ -408,13 +408,13 @@ type establishment {
   zipCode: String
 }
 
-type establishmentConnection {
+type EstablishmentConnection {
   pageInfo: PageInfo!
-  edges: [establishmentEdge]!
-  aggregate: Aggregateestablishment!
+  edges: [EstablishmentEdge]!
+  aggregate: AggregateEstablishment!
 }
 
-input establishmentCreateInput {
+input EstablishmentCreateInput {
   id: Int
   active: Boolean
   address: String
@@ -431,12 +431,12 @@ input establishmentCreateInput {
   zipCode: String
 }
 
-type establishmentEdge {
-  node: establishment!
+type EstablishmentEdge {
+  node: Establishment!
   cursor: String!
 }
 
-enum establishmentOrderByInput {
+enum EstablishmentOrderByInput {
   id_ASC
   id_DESC
   active_ASC
@@ -471,7 +471,7 @@ enum establishmentOrderByInput {
   zipCode_DESC
 }
 
-type establishmentPreviousValues {
+type EstablishmentPreviousValues {
   id: Int!
   active: Boolean!
   address: String
@@ -490,25 +490,25 @@ type establishmentPreviousValues {
   zipCode: String
 }
 
-type establishmentSubscriptionPayload {
+type EstablishmentSubscriptionPayload {
   mutation: MutationType!
-  node: establishment
+  node: Establishment
   updatedFields: [String!]
-  previousValues: establishmentPreviousValues
+  previousValues: EstablishmentPreviousValues
 }
 
-input establishmentSubscriptionWhereInput {
+input EstablishmentSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: establishmentWhereInput
-  AND: [establishmentSubscriptionWhereInput!]
-  OR: [establishmentSubscriptionWhereInput!]
-  NOT: [establishmentSubscriptionWhereInput!]
+  node: EstablishmentWhereInput
+  AND: [EstablishmentSubscriptionWhereInput!]
+  OR: [EstablishmentSubscriptionWhereInput!]
+  NOT: [EstablishmentSubscriptionWhereInput!]
 }
 
-input establishmentUpdateInput {
+input EstablishmentUpdateInput {
   active: Boolean
   address: String
   addressComplement: String
@@ -524,7 +524,7 @@ input establishmentUpdateInput {
   zipCode: String
 }
 
-input establishmentUpdateManyMutationInput {
+input EstablishmentUpdateManyMutationInput {
   active: Boolean
   address: String
   addressComplement: String
@@ -540,7 +540,7 @@ input establishmentUpdateManyMutationInput {
   zipCode: String
 }
 
-input establishmentWhereInput {
+input EstablishmentWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -729,12 +729,12 @@ input establishmentWhereInput {
   zipCode_not_starts_with: String
   zipCode_ends_with: String
   zipCode_not_ends_with: String
-  AND: [establishmentWhereInput!]
-  OR: [establishmentWhereInput!]
-  NOT: [establishmentWhereInput!]
+  AND: [EstablishmentWhereInput!]
+  OR: [EstablishmentWhereInput!]
+  NOT: [EstablishmentWhereInput!]
 }
 
-input establishmentWhereUniqueInput {
+input EstablishmentWhereUniqueInput {
   id: Int
 }
 
@@ -891,6 +891,12 @@ scalar Json
 scalar Long
 
 type Mutation {
+  createEstablishment(data: EstablishmentCreateInput!): Establishment!
+  updateEstablishment(data: EstablishmentUpdateInput!, where: EstablishmentWhereUniqueInput!): Establishment
+  updateManyEstablishments(data: EstablishmentUpdateManyMutationInput!, where: EstablishmentWhereInput): BatchPayload!
+  upsertEstablishment(where: EstablishmentWhereUniqueInput!, create: EstablishmentCreateInput!, update: EstablishmentUpdateInput!): Establishment!
+  deleteEstablishment(where: EstablishmentWhereUniqueInput!): Establishment
+  deleteManyEstablishments(where: EstablishmentWhereInput): BatchPayload!
   createappointment(data: appointmentCreateInput!): appointment!
   updateappointment(data: appointmentUpdateInput!, where: appointmentWhereUniqueInput!): appointment
   updateManyappointments(data: appointmentUpdateManyMutationInput!, where: appointmentWhereInput): BatchPayload!
@@ -909,12 +915,6 @@ type Mutation {
   upsertdepartment(where: departmentWhereUniqueInput!, create: departmentCreateInput!, update: departmentUpdateInput!): department!
   deletedepartment(where: departmentWhereUniqueInput!): department
   deleteManydepartments(where: departmentWhereInput): BatchPayload!
-  createestablishment(data: establishmentCreateInput!): establishment!
-  updateestablishment(data: establishmentUpdateInput!, where: establishmentWhereUniqueInput!): establishment
-  updateManyestablishments(data: establishmentUpdateManyMutationInput!, where: establishmentWhereInput): BatchPayload!
-  upsertestablishment(where: establishmentWhereUniqueInput!, create: establishmentCreateInput!, update: establishmentUpdateInput!): establishment!
-  deleteestablishment(where: establishmentWhereUniqueInput!): establishment
-  deleteManyestablishments(where: establishmentWhereInput): BatchPayload!
   createhour(data: hourCreateInput!): hour!
   updatehour(data: hourUpdateInput!, where: hourWhereUniqueInput!): hour
   updateManyhours(data: hourUpdateManyMutationInput!, where: hourWhereInput): BatchPayload!
@@ -977,6 +977,9 @@ type PageInfo {
 }
 
 type Query {
+  establishment(where: EstablishmentWhereUniqueInput!): Establishment
+  establishments(where: EstablishmentWhereInput, orderBy: EstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Establishment]!
+  establishmentsConnection(where: EstablishmentWhereInput, orderBy: EstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EstablishmentConnection!
   appointment(where: appointmentWhereUniqueInput!): appointment
   appointments(where: appointmentWhereInput, orderBy: appointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [appointment]!
   appointmentsConnection(where: appointmentWhereInput, orderBy: appointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): appointmentConnection!
@@ -986,9 +989,6 @@ type Query {
   department(where: departmentWhereUniqueInput!): department
   departments(where: departmentWhereInput, orderBy: departmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [department]!
   departmentsConnection(where: departmentWhereInput, orderBy: departmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): departmentConnection!
-  establishment(where: establishmentWhereUniqueInput!): establishment
-  establishments(where: establishmentWhereInput, orderBy: establishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [establishment]!
-  establishmentsConnection(where: establishmentWhereInput, orderBy: establishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): establishmentConnection!
   hour(where: hourWhereUniqueInput!): hour
   hours(where: hourWhereInput, orderBy: hourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [hour]!
   hoursConnection(where: hourWhereInput, orderBy: hourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): hourConnection!
@@ -1500,10 +1500,10 @@ input serviceWhereUniqueInput {
 }
 
 type Subscription {
+  establishment(where: EstablishmentSubscriptionWhereInput): EstablishmentSubscriptionPayload
   appointment(where: appointmentSubscriptionWhereInput): appointmentSubscriptionPayload
   day(where: daySubscriptionWhereInput): daySubscriptionPayload
   department(where: departmentSubscriptionWhereInput): departmentSubscriptionPayload
-  establishment(where: establishmentSubscriptionWhereInput): establishmentSubscriptionPayload
   hour(where: hourSubscriptionWhereInput): hourSubscriptionPayload
   report(where: reportSubscriptionWhereInput): reportSubscriptionPayload
   review(where: reviewSubscriptionWhereInput): reviewSubscriptionPayload
