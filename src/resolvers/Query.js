@@ -5,8 +5,8 @@ const { department, departments } = require('./Queries/queryDepartment')
 const { establishment, establishments } = require('./Queries/queryEstablishment')
 const { review, reviews } = require('./Queries/queryReview')
 const { service, services } = require('./Queries/queryService')
-const { typeofshift, typeofshifts } = require('./Queries/queryTypeOfShift')
-const { userestablishment, userestablishments } = require('./Queries/queryUserEstablishment')
+const { typeOfShift, typeOfShifts } = require('./Queries/queryTypeOfShift')
+const { userEstablishment, userEstablishments } = require('./Queries/queryUserEstablishment')
 const { hour, hours } = require('./Queries/queryHours')
 
 const Query = {
@@ -24,10 +24,10 @@ const Query = {
     reviews,
     service,
     services,
-    userestablishment,
-    userestablishments,
-    typeofshift,
-    typeofshifts,
+    userEstablishment,
+    userEstablishments,
+    typeOfShift,
+    typeOfShifts,
     hour,
     hours
   }

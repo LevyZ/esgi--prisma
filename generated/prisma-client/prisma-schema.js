@@ -3,132 +3,154 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type Aggregateappointment {
+/* GraphQL */ `type AggregateAppointment {
   count: Int!
 }
 
-type Aggregateday {
+type AggregateAppointmentStatus {
   count: Int!
 }
 
-type Aggregatedepartment {
+type AggregateDay {
   count: Int!
 }
 
-type Aggregateestablishment {
+type AggregateDepartment {
   count: Int!
 }
 
-type Aggregatehour {
+type AggregateEstablishment {
   count: Int!
 }
 
-type Aggregatereport {
+type AggregateHour {
   count: Int!
 }
 
-type Aggregatereview {
+type AggregateReport {
   count: Int!
 }
 
-type Aggregateservice {
+type AggregateReview {
   count: Int!
 }
 
-type Aggregatetypeofshift {
+type AggregateService {
   count: Int!
 }
 
-type Aggregateuser {
+type AggregateTypeOfShift {
   count: Int!
 }
 
-type Aggregateuserestablishment {
+type AggregateUser {
   count: Int!
 }
 
-type appointment {
+type AggregateUserEstablishment {
+  count: Int!
+}
+
+type Appointment {
   id: Int!
+  client: User
+  appointmentStatus: AppointmentStatus
+  startHour: DateTime
+  endHour: DateTime
   createdAt: DateTime!
   deletedAt: DateTime
-  endHour: DateTime
-  startHour: DateTime
   updatedAt: DateTime!
+  establishment: Establishment
 }
 
-type appointmentConnection {
+type AppointmentConnection {
   pageInfo: PageInfo!
-  edges: [appointmentEdge]!
-  aggregate: Aggregateappointment!
+  edges: [AppointmentEdge]!
+  aggregate: AggregateAppointment!
 }
 
-input appointmentCreateInput {
+input AppointmentCreateInput {
   id: Int
-  deletedAt: DateTime
-  endHour: DateTime
+  client: UserCreateOneWithoutAppointmentInput
+  appointmentStatus: AppointmentStatusCreateOneWithoutAppointmentInput
   startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+  establishment: EstablishmentCreateOneWithoutAppointmentInput
 }
 
-type appointmentEdge {
-  node: appointment!
+input AppointmentCreateManyWithoutAppointmentStatusInput {
+  create: [AppointmentCreateWithoutAppointmentStatusInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateManyWithoutClientInput {
+  create: [AppointmentCreateWithoutClientInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateManyWithoutEstablishmentInput {
+  create: [AppointmentCreateWithoutEstablishmentInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateWithoutAppointmentStatusInput {
+  id: Int
+  client: UserCreateOneWithoutAppointmentInput
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+  establishment: EstablishmentCreateOneWithoutAppointmentInput
+}
+
+input AppointmentCreateWithoutClientInput {
+  id: Int
+  appointmentStatus: AppointmentStatusCreateOneWithoutAppointmentInput
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+  establishment: EstablishmentCreateOneWithoutAppointmentInput
+}
+
+input AppointmentCreateWithoutEstablishmentInput {
+  id: Int
+  client: UserCreateOneWithoutAppointmentInput
+  appointmentStatus: AppointmentStatusCreateOneWithoutAppointmentInput
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+}
+
+type AppointmentEdge {
+  node: Appointment!
   cursor: String!
 }
 
-enum appointmentOrderByInput {
+enum AppointmentOrderByInput {
   id_ASC
   id_DESC
+  startHour_ASC
+  startHour_DESC
+  endHour_ASC
+  endHour_DESC
   createdAt_ASC
   createdAt_DESC
   deletedAt_ASC
   deletedAt_DESC
-  endHour_ASC
-  endHour_DESC
-  startHour_ASC
-  startHour_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
 
-type appointmentPreviousValues {
+type AppointmentPreviousValues {
   id: Int!
+  startHour: DateTime
+  endHour: DateTime
   createdAt: DateTime!
   deletedAt: DateTime
-  endHour: DateTime
-  startHour: DateTime
   updatedAt: DateTime!
 }
 
-type appointmentSubscriptionPayload {
-  mutation: MutationType!
-  node: appointment
-  updatedFields: [String!]
-  previousValues: appointmentPreviousValues
-}
-
-input appointmentSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: appointmentWhereInput
-  AND: [appointmentSubscriptionWhereInput!]
-  OR: [appointmentSubscriptionWhereInput!]
-  NOT: [appointmentSubscriptionWhereInput!]
-}
-
-input appointmentUpdateInput {
-  deletedAt: DateTime
-  endHour: DateTime
-  startHour: DateTime
-}
-
-input appointmentUpdateManyMutationInput {
-  deletedAt: DateTime
-  endHour: DateTime
-  startHour: DateTime
-}
-
-input appointmentWhereInput {
+input AppointmentScalarWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -137,6 +159,22 @@ input appointmentWhereInput {
   id_lte: Int
   id_gt: Int
   id_gte: Int
+  startHour: DateTime
+  startHour_not: DateTime
+  startHour_in: [DateTime!]
+  startHour_not_in: [DateTime!]
+  startHour_lt: DateTime
+  startHour_lte: DateTime
+  startHour_gt: DateTime
+  startHour_gte: DateTime
+  endHour: DateTime
+  endHour_not: DateTime
+  endHour_in: [DateTime!]
+  endHour_not_in: [DateTime!]
+  endHour_lt: DateTime
+  endHour_lte: DateTime
+  endHour_gt: DateTime
+  endHour_gte: DateTime
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -153,22 +191,6 @@ input appointmentWhereInput {
   deletedAt_lte: DateTime
   deletedAt_gt: DateTime
   deletedAt_gte: DateTime
-  endHour: DateTime
-  endHour_not: DateTime
-  endHour_in: [DateTime!]
-  endHour_not_in: [DateTime!]
-  endHour_lt: DateTime
-  endHour_lte: DateTime
-  endHour_gt: DateTime
-  endHour_gte: DateTime
-  startHour: DateTime
-  startHour_not: DateTime
-  startHour_in: [DateTime!]
-  startHour_not_in: [DateTime!]
-  startHour_lt: DateTime
-  startHour_lte: DateTime
-  startHour_gt: DateTime
-  startHour_gte: DateTime
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -177,12 +199,331 @@ input appointmentWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  AND: [appointmentWhereInput!]
-  OR: [appointmentWhereInput!]
-  NOT: [appointmentWhereInput!]
+  AND: [AppointmentScalarWhereInput!]
+  OR: [AppointmentScalarWhereInput!]
+  NOT: [AppointmentScalarWhereInput!]
 }
 
-input appointmentWhereUniqueInput {
+type AppointmentStatus {
+  id: Int!
+  name: String
+  appointment(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
+}
+
+type AppointmentStatusConnection {
+  pageInfo: PageInfo!
+  edges: [AppointmentStatusEdge]!
+  aggregate: AggregateAppointmentStatus!
+}
+
+input AppointmentStatusCreateInput {
+  id: Int
+  name: String
+  appointment: AppointmentCreateManyWithoutAppointmentStatusInput
+}
+
+input AppointmentStatusCreateOneWithoutAppointmentInput {
+  create: AppointmentStatusCreateWithoutAppointmentInput
+  connect: AppointmentStatusWhereUniqueInput
+}
+
+input AppointmentStatusCreateWithoutAppointmentInput {
+  id: Int
+  name: String
+}
+
+type AppointmentStatusEdge {
+  node: AppointmentStatus!
+  cursor: String!
+}
+
+enum AppointmentStatusOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type AppointmentStatusPreviousValues {
+  id: Int!
+  name: String
+}
+
+type AppointmentStatusSubscriptionPayload {
+  mutation: MutationType!
+  node: AppointmentStatus
+  updatedFields: [String!]
+  previousValues: AppointmentStatusPreviousValues
+}
+
+input AppointmentStatusSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AppointmentStatusWhereInput
+  AND: [AppointmentStatusSubscriptionWhereInput!]
+  OR: [AppointmentStatusSubscriptionWhereInput!]
+  NOT: [AppointmentStatusSubscriptionWhereInput!]
+}
+
+input AppointmentStatusUpdateInput {
+  name: String
+  appointment: AppointmentUpdateManyWithoutAppointmentStatusInput
+}
+
+input AppointmentStatusUpdateManyMutationInput {
+  name: String
+}
+
+input AppointmentStatusUpdateOneWithoutAppointmentInput {
+  create: AppointmentStatusCreateWithoutAppointmentInput
+  update: AppointmentStatusUpdateWithoutAppointmentDataInput
+  upsert: AppointmentStatusUpsertWithoutAppointmentInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: AppointmentStatusWhereUniqueInput
+}
+
+input AppointmentStatusUpdateWithoutAppointmentDataInput {
+  name: String
+}
+
+input AppointmentStatusUpsertWithoutAppointmentInput {
+  update: AppointmentStatusUpdateWithoutAppointmentDataInput!
+  create: AppointmentStatusCreateWithoutAppointmentInput!
+}
+
+input AppointmentStatusWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  appointment_every: AppointmentWhereInput
+  appointment_some: AppointmentWhereInput
+  appointment_none: AppointmentWhereInput
+  AND: [AppointmentStatusWhereInput!]
+  OR: [AppointmentStatusWhereInput!]
+  NOT: [AppointmentStatusWhereInput!]
+}
+
+input AppointmentStatusWhereUniqueInput {
+  id: Int
+}
+
+type AppointmentSubscriptionPayload {
+  mutation: MutationType!
+  node: Appointment
+  updatedFields: [String!]
+  previousValues: AppointmentPreviousValues
+}
+
+input AppointmentSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AppointmentWhereInput
+  AND: [AppointmentSubscriptionWhereInput!]
+  OR: [AppointmentSubscriptionWhereInput!]
+  NOT: [AppointmentSubscriptionWhereInput!]
+}
+
+input AppointmentUpdateInput {
+  client: UserUpdateOneWithoutAppointmentInput
+  appointmentStatus: AppointmentStatusUpdateOneWithoutAppointmentInput
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+  establishment: EstablishmentUpdateOneWithoutAppointmentInput
+}
+
+input AppointmentUpdateManyDataInput {
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+}
+
+input AppointmentUpdateManyMutationInput {
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+}
+
+input AppointmentUpdateManyWithoutAppointmentStatusInput {
+  create: [AppointmentCreateWithoutAppointmentStatusInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutAppointmentStatusInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutAppointmentStatusInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
+}
+
+input AppointmentUpdateManyWithoutClientInput {
+  create: [AppointmentCreateWithoutClientInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutClientInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutClientInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
+}
+
+input AppointmentUpdateManyWithoutEstablishmentInput {
+  create: [AppointmentCreateWithoutEstablishmentInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutEstablishmentInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutEstablishmentInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
+}
+
+input AppointmentUpdateManyWithWhereNestedInput {
+  where: AppointmentScalarWhereInput!
+  data: AppointmentUpdateManyDataInput!
+}
+
+input AppointmentUpdateWithoutAppointmentStatusDataInput {
+  client: UserUpdateOneWithoutAppointmentInput
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+  establishment: EstablishmentUpdateOneWithoutAppointmentInput
+}
+
+input AppointmentUpdateWithoutClientDataInput {
+  appointmentStatus: AppointmentStatusUpdateOneWithoutAppointmentInput
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+  establishment: EstablishmentUpdateOneWithoutAppointmentInput
+}
+
+input AppointmentUpdateWithoutEstablishmentDataInput {
+  client: UserUpdateOneWithoutAppointmentInput
+  appointmentStatus: AppointmentStatusUpdateOneWithoutAppointmentInput
+  startHour: DateTime
+  endHour: DateTime
+  deletedAt: DateTime
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutAppointmentStatusInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutAppointmentStatusDataInput!
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutClientInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutClientDataInput!
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutEstablishmentInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutEstablishmentDataInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutAppointmentStatusInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutAppointmentStatusDataInput!
+  create: AppointmentCreateWithoutAppointmentStatusInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutClientInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutClientDataInput!
+  create: AppointmentCreateWithoutClientInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutEstablishmentInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutEstablishmentDataInput!
+  create: AppointmentCreateWithoutEstablishmentInput!
+}
+
+input AppointmentWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  client: UserWhereInput
+  appointmentStatus: AppointmentStatusWhereInput
+  startHour: DateTime
+  startHour_not: DateTime
+  startHour_in: [DateTime!]
+  startHour_not_in: [DateTime!]
+  startHour_lt: DateTime
+  startHour_lte: DateTime
+  startHour_gt: DateTime
+  startHour_gte: DateTime
+  endHour: DateTime
+  endHour_not: DateTime
+  endHour_in: [DateTime!]
+  endHour_not_in: [DateTime!]
+  endHour_lt: DateTime
+  endHour_lte: DateTime
+  endHour_gt: DateTime
+  endHour_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  establishment: EstablishmentWhereInput
+  AND: [AppointmentWhereInput!]
+  OR: [AppointmentWhereInput!]
+  NOT: [AppointmentWhereInput!]
+}
+
+input AppointmentWhereUniqueInput {
   id: Int
 }
 
@@ -192,66 +533,97 @@ type BatchPayload {
 
 scalar DateTime
 
-type day {
+type Day {
   id: Int!
   name: String!
+  hours(where: HourWhereInput, orderBy: HourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hour!]
 }
 
-type dayConnection {
+type DayConnection {
   pageInfo: PageInfo!
-  edges: [dayEdge]!
-  aggregate: Aggregateday!
+  edges: [DayEdge]!
+  aggregate: AggregateDay!
 }
 
-input dayCreateInput {
+input DayCreateInput {
+  id: Int
+  name: String!
+  hours: HourCreateManyWithoutDayInput
+}
+
+input DayCreateOneWithoutHoursInput {
+  create: DayCreateWithoutHoursInput
+  connect: DayWhereUniqueInput
+}
+
+input DayCreateWithoutHoursInput {
   id: Int
   name: String!
 }
 
-type dayEdge {
-  node: day!
+type DayEdge {
+  node: Day!
   cursor: String!
 }
 
-enum dayOrderByInput {
+enum DayOrderByInput {
   id_ASC
   id_DESC
   name_ASC
   name_DESC
 }
 
-type dayPreviousValues {
+type DayPreviousValues {
   id: Int!
   name: String!
 }
 
-type daySubscriptionPayload {
+type DaySubscriptionPayload {
   mutation: MutationType!
-  node: day
+  node: Day
   updatedFields: [String!]
-  previousValues: dayPreviousValues
+  previousValues: DayPreviousValues
 }
 
-input daySubscriptionWhereInput {
+input DaySubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: dayWhereInput
-  AND: [daySubscriptionWhereInput!]
-  OR: [daySubscriptionWhereInput!]
-  NOT: [daySubscriptionWhereInput!]
+  node: DayWhereInput
+  AND: [DaySubscriptionWhereInput!]
+  OR: [DaySubscriptionWhereInput!]
+  NOT: [DaySubscriptionWhereInput!]
 }
 
-input dayUpdateInput {
+input DayUpdateInput {
+  name: String
+  hours: HourUpdateManyWithoutDayInput
+}
+
+input DayUpdateManyMutationInput {
   name: String
 }
 
-input dayUpdateManyMutationInput {
+input DayUpdateOneWithoutHoursInput {
+  create: DayCreateWithoutHoursInput
+  update: DayUpdateWithoutHoursDataInput
+  upsert: DayUpsertWithoutHoursInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: DayWhereUniqueInput
+}
+
+input DayUpdateWithoutHoursDataInput {
   name: String
 }
 
-input dayWhereInput {
+input DayUpsertWithoutHoursInput {
+  update: DayUpdateWithoutHoursDataInput!
+  create: DayCreateWithoutHoursInput!
+}
+
+input DayWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -274,82 +646,155 @@ input dayWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  AND: [dayWhereInput!]
-  OR: [dayWhereInput!]
-  NOT: [dayWhereInput!]
+  hours_every: HourWhereInput
+  hours_some: HourWhereInput
+  hours_none: HourWhereInput
+  AND: [DayWhereInput!]
+  OR: [DayWhereInput!]
+  NOT: [DayWhereInput!]
 }
 
-input dayWhereUniqueInput {
+input DayWhereUniqueInput {
   id: Int
 }
 
-type department {
+type Department {
   id: Int!
-  departmentCode: Int
   name: String
+  departmentCode: Int
+  establishment(where: EstablishmentWhereInput, orderBy: EstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Establishment!]
+  user(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
-type departmentConnection {
+type DepartmentConnection {
   pageInfo: PageInfo!
-  edges: [departmentEdge]!
-  aggregate: Aggregatedepartment!
+  edges: [DepartmentEdge]!
+  aggregate: AggregateDepartment!
 }
 
-input departmentCreateInput {
+input DepartmentCreateInput {
   id: Int
-  departmentCode: Int
   name: String
+  departmentCode: Int
+  establishment: EstablishmentCreateManyWithoutDepartmentInput
+  user: UserCreateManyWithoutDepartmentInput
 }
 
-type departmentEdge {
-  node: department!
+input DepartmentCreateOneWithoutEstablishmentInput {
+  create: DepartmentCreateWithoutEstablishmentInput
+  connect: DepartmentWhereUniqueInput
+}
+
+input DepartmentCreateOneWithoutUserInput {
+  create: DepartmentCreateWithoutUserInput
+  connect: DepartmentWhereUniqueInput
+}
+
+input DepartmentCreateWithoutEstablishmentInput {
+  id: Int
+  name: String
+  departmentCode: Int
+  user: UserCreateManyWithoutDepartmentInput
+}
+
+input DepartmentCreateWithoutUserInput {
+  id: Int
+  name: String
+  departmentCode: Int
+  establishment: EstablishmentCreateManyWithoutDepartmentInput
+}
+
+type DepartmentEdge {
+  node: Department!
   cursor: String!
 }
 
-enum departmentOrderByInput {
+enum DepartmentOrderByInput {
   id_ASC
   id_DESC
-  departmentCode_ASC
-  departmentCode_DESC
   name_ASC
   name_DESC
+  departmentCode_ASC
+  departmentCode_DESC
 }
 
-type departmentPreviousValues {
+type DepartmentPreviousValues {
   id: Int!
-  departmentCode: Int
   name: String
+  departmentCode: Int
 }
 
-type departmentSubscriptionPayload {
+type DepartmentSubscriptionPayload {
   mutation: MutationType!
-  node: department
+  node: Department
   updatedFields: [String!]
-  previousValues: departmentPreviousValues
+  previousValues: DepartmentPreviousValues
 }
 
-input departmentSubscriptionWhereInput {
+input DepartmentSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: departmentWhereInput
-  AND: [departmentSubscriptionWhereInput!]
-  OR: [departmentSubscriptionWhereInput!]
-  NOT: [departmentSubscriptionWhereInput!]
+  node: DepartmentWhereInput
+  AND: [DepartmentSubscriptionWhereInput!]
+  OR: [DepartmentSubscriptionWhereInput!]
+  NOT: [DepartmentSubscriptionWhereInput!]
 }
 
-input departmentUpdateInput {
-  departmentCode: Int
+input DepartmentUpdateInput {
   name: String
-}
-
-input departmentUpdateManyMutationInput {
   departmentCode: Int
-  name: String
+  establishment: EstablishmentUpdateManyWithoutDepartmentInput
+  user: UserUpdateManyWithoutDepartmentInput
 }
 
-input departmentWhereInput {
+input DepartmentUpdateManyMutationInput {
+  name: String
+  departmentCode: Int
+}
+
+input DepartmentUpdateOneWithoutEstablishmentInput {
+  create: DepartmentCreateWithoutEstablishmentInput
+  update: DepartmentUpdateWithoutEstablishmentDataInput
+  upsert: DepartmentUpsertWithoutEstablishmentInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: DepartmentWhereUniqueInput
+}
+
+input DepartmentUpdateOneWithoutUserInput {
+  create: DepartmentCreateWithoutUserInput
+  update: DepartmentUpdateWithoutUserDataInput
+  upsert: DepartmentUpsertWithoutUserInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: DepartmentWhereUniqueInput
+}
+
+input DepartmentUpdateWithoutEstablishmentDataInput {
+  name: String
+  departmentCode: Int
+  user: UserUpdateManyWithoutDepartmentInput
+}
+
+input DepartmentUpdateWithoutUserDataInput {
+  name: String
+  departmentCode: Int
+  establishment: EstablishmentUpdateManyWithoutDepartmentInput
+}
+
+input DepartmentUpsertWithoutEstablishmentInput {
+  update: DepartmentUpdateWithoutEstablishmentDataInput!
+  create: DepartmentCreateWithoutEstablishmentInput!
+}
+
+input DepartmentUpsertWithoutUserInput {
+  update: DepartmentUpdateWithoutUserDataInput!
+  create: DepartmentCreateWithoutUserInput!
+}
+
+input DepartmentWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -358,6 +803,20 @@ input departmentWhereInput {
   id_lte: Int
   id_gt: Int
   id_gte: Int
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
   departmentCode: Int
   departmentCode_not: Int
   departmentCode_in: [Int!]
@@ -366,181 +825,371 @@ input departmentWhereInput {
   departmentCode_lte: Int
   departmentCode_gt: Int
   departmentCode_gte: Int
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  AND: [departmentWhereInput!]
-  OR: [departmentWhereInput!]
-  NOT: [departmentWhereInput!]
+  establishment_every: EstablishmentWhereInput
+  establishment_some: EstablishmentWhereInput
+  establishment_none: EstablishmentWhereInput
+  user_every: UserWhereInput
+  user_some: UserWhereInput
+  user_none: UserWhereInput
+  AND: [DepartmentWhereInput!]
+  OR: [DepartmentWhereInput!]
+  NOT: [DepartmentWhereInput!]
 }
 
-input departmentWhereUniqueInput {
+input DepartmentWhereUniqueInput {
   id: Int
 }
 
-type establishment {
+type Establishment {
   id: Int!
-  active: Boolean!
+  department: Department
+  owner: User
+  commercialName: String
   address: String
   addressComplement: String
   city: String
-  commercialName: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
   contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean!
   createdAt: DateTime!
   deletedAt: DateTime
-  description: String
-  illustration: String
-  name: String
-  phoneNumber: String
-  siret: String
   updatedAt: DateTime!
-  zipCode: String
+  hours(where: HourWhereInput, orderBy: HourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hour!]
+  report(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Report!]
+  review(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
+  service(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Service!]
+  userEstablishment(where: UserEstablishmentWhereInput, orderBy: UserEstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserEstablishment!]
+  appointment(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
 }
 
-type establishmentConnection {
+type EstablishmentConnection {
   pageInfo: PageInfo!
-  edges: [establishmentEdge]!
-  aggregate: Aggregateestablishment!
+  edges: [EstablishmentEdge]!
+  aggregate: AggregateEstablishment!
 }
 
-input establishmentCreateInput {
+input EstablishmentCreateInput {
   id: Int
-  active: Boolean
+  department: DepartmentCreateOneWithoutEstablishmentInput
+  owner: UserCreateOneWithoutEstablishmentInput
+  commercialName: String
   address: String
   addressComplement: String
   city: String
-  commercialName: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
   contactEmail: String
-  deletedAt: DateTime
-  description: String
   illustration: String
   name: String
-  phoneNumber: String
-  siret: String
-  zipCode: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourCreateManyWithoutEstablishmentInput
+  report: ReportCreateManyWithoutEstablishmentInput
+  review: ReviewCreateManyWithoutEstablishmentInput
+  service: ServiceCreateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentCreateManyWithoutEstablishmentInput
+  appointment: AppointmentCreateManyWithoutEstablishmentInput
 }
 
-type establishmentEdge {
-  node: establishment!
+input EstablishmentCreateManyWithoutDepartmentInput {
+  create: [EstablishmentCreateWithoutDepartmentInput!]
+  connect: [EstablishmentWhereUniqueInput!]
+}
+
+input EstablishmentCreateManyWithoutOwnerInput {
+  create: [EstablishmentCreateWithoutOwnerInput!]
+  connect: [EstablishmentWhereUniqueInput!]
+}
+
+input EstablishmentCreateOneWithoutAppointmentInput {
+  create: EstablishmentCreateWithoutAppointmentInput
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentCreateOneWithoutHoursInput {
+  create: EstablishmentCreateWithoutHoursInput
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentCreateOneWithoutReportInput {
+  create: EstablishmentCreateWithoutReportInput
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentCreateOneWithoutReviewInput {
+  create: EstablishmentCreateWithoutReviewInput
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentCreateOneWithoutServiceInput {
+  create: EstablishmentCreateWithoutServiceInput
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentCreateOneWithoutUserEstablishmentInput {
+  create: EstablishmentCreateWithoutUserEstablishmentInput
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentCreateWithoutAppointmentInput {
+  id: Int
+  department: DepartmentCreateOneWithoutEstablishmentInput
+  owner: UserCreateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourCreateManyWithoutEstablishmentInput
+  report: ReportCreateManyWithoutEstablishmentInput
+  review: ReviewCreateManyWithoutEstablishmentInput
+  service: ServiceCreateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentCreateManyWithoutEstablishmentInput
+}
+
+input EstablishmentCreateWithoutDepartmentInput {
+  id: Int
+  owner: UserCreateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourCreateManyWithoutEstablishmentInput
+  report: ReportCreateManyWithoutEstablishmentInput
+  review: ReviewCreateManyWithoutEstablishmentInput
+  service: ServiceCreateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentCreateManyWithoutEstablishmentInput
+  appointment: AppointmentCreateManyWithoutEstablishmentInput
+}
+
+input EstablishmentCreateWithoutHoursInput {
+  id: Int
+  department: DepartmentCreateOneWithoutEstablishmentInput
+  owner: UserCreateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  report: ReportCreateManyWithoutEstablishmentInput
+  review: ReviewCreateManyWithoutEstablishmentInput
+  service: ServiceCreateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentCreateManyWithoutEstablishmentInput
+  appointment: AppointmentCreateManyWithoutEstablishmentInput
+}
+
+input EstablishmentCreateWithoutOwnerInput {
+  id: Int
+  department: DepartmentCreateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourCreateManyWithoutEstablishmentInput
+  report: ReportCreateManyWithoutEstablishmentInput
+  review: ReviewCreateManyWithoutEstablishmentInput
+  service: ServiceCreateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentCreateManyWithoutEstablishmentInput
+  appointment: AppointmentCreateManyWithoutEstablishmentInput
+}
+
+input EstablishmentCreateWithoutReportInput {
+  id: Int
+  department: DepartmentCreateOneWithoutEstablishmentInput
+  owner: UserCreateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourCreateManyWithoutEstablishmentInput
+  review: ReviewCreateManyWithoutEstablishmentInput
+  service: ServiceCreateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentCreateManyWithoutEstablishmentInput
+  appointment: AppointmentCreateManyWithoutEstablishmentInput
+}
+
+input EstablishmentCreateWithoutReviewInput {
+  id: Int
+  department: DepartmentCreateOneWithoutEstablishmentInput
+  owner: UserCreateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourCreateManyWithoutEstablishmentInput
+  report: ReportCreateManyWithoutEstablishmentInput
+  service: ServiceCreateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentCreateManyWithoutEstablishmentInput
+  appointment: AppointmentCreateManyWithoutEstablishmentInput
+}
+
+input EstablishmentCreateWithoutServiceInput {
+  id: Int
+  department: DepartmentCreateOneWithoutEstablishmentInput
+  owner: UserCreateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourCreateManyWithoutEstablishmentInput
+  report: ReportCreateManyWithoutEstablishmentInput
+  review: ReviewCreateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentCreateManyWithoutEstablishmentInput
+  appointment: AppointmentCreateManyWithoutEstablishmentInput
+}
+
+input EstablishmentCreateWithoutUserEstablishmentInput {
+  id: Int
+  department: DepartmentCreateOneWithoutEstablishmentInput
+  owner: UserCreateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourCreateManyWithoutEstablishmentInput
+  report: ReportCreateManyWithoutEstablishmentInput
+  review: ReviewCreateManyWithoutEstablishmentInput
+  service: ServiceCreateManyWithoutEstablishmentInput
+  appointment: AppointmentCreateManyWithoutEstablishmentInput
+}
+
+type EstablishmentEdge {
+  node: Establishment!
   cursor: String!
 }
 
-enum establishmentOrderByInput {
+enum EstablishmentOrderByInput {
   id_ASC
   id_DESC
-  active_ASC
-  active_DESC
+  commercialName_ASC
+  commercialName_DESC
   address_ASC
   address_DESC
   addressComplement_ASC
   addressComplement_DESC
   city_ASC
   city_DESC
-  commercialName_ASC
-  commercialName_DESC
+  zipCode_ASC
+  zipCode_DESC
+  siret_ASC
+  siret_DESC
+  phoneNumber_ASC
+  phoneNumber_DESC
   contactEmail_ASC
   contactEmail_DESC
-  createdAt_ASC
-  createdAt_DESC
-  deletedAt_ASC
-  deletedAt_DESC
-  description_ASC
-  description_DESC
   illustration_ASC
   illustration_DESC
   name_ASC
   name_DESC
-  phoneNumber_ASC
-  phoneNumber_DESC
-  siret_ASC
-  siret_DESC
+  description_ASC
+  description_DESC
+  active_ASC
+  active_DESC
+  createdAt_ASC
+  createdAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
   updatedAt_ASC
   updatedAt_DESC
-  zipCode_ASC
-  zipCode_DESC
 }
 
-type establishmentPreviousValues {
+type EstablishmentPreviousValues {
   id: Int!
-  active: Boolean!
+  commercialName: String
   address: String
   addressComplement: String
   city: String
-  commercialName: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
   contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean!
   createdAt: DateTime!
   deletedAt: DateTime
-  description: String
-  illustration: String
-  name: String
-  phoneNumber: String
-  siret: String
   updatedAt: DateTime!
-  zipCode: String
 }
 
-type establishmentSubscriptionPayload {
-  mutation: MutationType!
-  node: establishment
-  updatedFields: [String!]
-  previousValues: establishmentPreviousValues
-}
-
-input establishmentSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: establishmentWhereInput
-  AND: [establishmentSubscriptionWhereInput!]
-  OR: [establishmentSubscriptionWhereInput!]
-  NOT: [establishmentSubscriptionWhereInput!]
-}
-
-input establishmentUpdateInput {
-  active: Boolean
-  address: String
-  addressComplement: String
-  city: String
-  commercialName: String
-  contactEmail: String
-  deletedAt: DateTime
-  description: String
-  illustration: String
-  name: String
-  phoneNumber: String
-  siret: String
-  zipCode: String
-}
-
-input establishmentUpdateManyMutationInput {
-  active: Boolean
-  address: String
-  addressComplement: String
-  city: String
-  commercialName: String
-  contactEmail: String
-  deletedAt: DateTime
-  description: String
-  illustration: String
-  name: String
-  phoneNumber: String
-  siret: String
-  zipCode: String
-}
-
-input establishmentWhereInput {
+input EstablishmentScalarWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -549,8 +1198,20 @@ input establishmentWhereInput {
   id_lte: Int
   id_gt: Int
   id_gte: Int
-  active: Boolean
-  active_not: Boolean
+  commercialName: String
+  commercialName_not: String
+  commercialName_in: [String!]
+  commercialName_not_in: [String!]
+  commercialName_lt: String
+  commercialName_lte: String
+  commercialName_gt: String
+  commercialName_gte: String
+  commercialName_contains: String
+  commercialName_not_contains: String
+  commercialName_starts_with: String
+  commercialName_not_starts_with: String
+  commercialName_ends_with: String
+  commercialName_not_ends_with: String
   address: String
   address_not: String
   address_in: [String!]
@@ -593,20 +1254,48 @@ input establishmentWhereInput {
   city_not_starts_with: String
   city_ends_with: String
   city_not_ends_with: String
-  commercialName: String
-  commercialName_not: String
-  commercialName_in: [String!]
-  commercialName_not_in: [String!]
-  commercialName_lt: String
-  commercialName_lte: String
-  commercialName_gt: String
-  commercialName_gte: String
-  commercialName_contains: String
-  commercialName_not_contains: String
-  commercialName_starts_with: String
-  commercialName_not_starts_with: String
-  commercialName_ends_with: String
-  commercialName_not_ends_with: String
+  zipCode: String
+  zipCode_not: String
+  zipCode_in: [String!]
+  zipCode_not_in: [String!]
+  zipCode_lt: String
+  zipCode_lte: String
+  zipCode_gt: String
+  zipCode_gte: String
+  zipCode_contains: String
+  zipCode_not_contains: String
+  zipCode_starts_with: String
+  zipCode_not_starts_with: String
+  zipCode_ends_with: String
+  zipCode_not_ends_with: String
+  siret: String
+  siret_not: String
+  siret_in: [String!]
+  siret_not_in: [String!]
+  siret_lt: String
+  siret_lte: String
+  siret_gt: String
+  siret_gte: String
+  siret_contains: String
+  siret_not_contains: String
+  siret_starts_with: String
+  siret_not_starts_with: String
+  siret_ends_with: String
+  siret_not_ends_with: String
+  phoneNumber: String
+  phoneNumber_not: String
+  phoneNumber_in: [String!]
+  phoneNumber_not_in: [String!]
+  phoneNumber_lt: String
+  phoneNumber_lte: String
+  phoneNumber_gt: String
+  phoneNumber_gte: String
+  phoneNumber_contains: String
+  phoneNumber_not_contains: String
+  phoneNumber_starts_with: String
+  phoneNumber_not_starts_with: String
+  phoneNumber_ends_with: String
+  phoneNumber_not_ends_with: String
   contactEmail: String
   contactEmail_not: String
   contactEmail_in: [String!]
@@ -621,36 +1310,6 @@ input establishmentWhereInput {
   contactEmail_not_starts_with: String
   contactEmail_ends_with: String
   contactEmail_not_ends_with: String
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  deletedAt: DateTime
-  deletedAt_not: DateTime
-  deletedAt_in: [DateTime!]
-  deletedAt_not_in: [DateTime!]
-  deletedAt_lt: DateTime
-  deletedAt_lte: DateTime
-  deletedAt_gt: DateTime
-  deletedAt_gte: DateTime
-  description: String
-  description_not: String
-  description_in: [String!]
-  description_not_in: [String!]
-  description_lt: String
-  description_lte: String
-  description_gt: String
-  description_gte: String
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
   illustration: String
   illustration_not: String
   illustration_in: [String!]
@@ -679,34 +1338,38 @@ input establishmentWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  phoneNumber: String
-  phoneNumber_not: String
-  phoneNumber_in: [String!]
-  phoneNumber_not_in: [String!]
-  phoneNumber_lt: String
-  phoneNumber_lte: String
-  phoneNumber_gt: String
-  phoneNumber_gte: String
-  phoneNumber_contains: String
-  phoneNumber_not_contains: String
-  phoneNumber_starts_with: String
-  phoneNumber_not_starts_with: String
-  phoneNumber_ends_with: String
-  phoneNumber_not_ends_with: String
-  siret: String
-  siret_not: String
-  siret_in: [String!]
-  siret_not_in: [String!]
-  siret_lt: String
-  siret_lte: String
-  siret_gt: String
-  siret_gte: String
-  siret_contains: String
-  siret_not_contains: String
-  siret_starts_with: String
-  siret_not_starts_with: String
-  siret_ends_with: String
-  siret_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  active: Boolean
+  active_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -715,6 +1378,471 @@ input establishmentWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  AND: [EstablishmentScalarWhereInput!]
+  OR: [EstablishmentScalarWhereInput!]
+  NOT: [EstablishmentScalarWhereInput!]
+}
+
+type EstablishmentSubscriptionPayload {
+  mutation: MutationType!
+  node: Establishment
+  updatedFields: [String!]
+  previousValues: EstablishmentPreviousValues
+}
+
+input EstablishmentSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EstablishmentWhereInput
+  AND: [EstablishmentSubscriptionWhereInput!]
+  OR: [EstablishmentSubscriptionWhereInput!]
+  NOT: [EstablishmentSubscriptionWhereInput!]
+}
+
+input EstablishmentUpdateInput {
+  department: DepartmentUpdateOneWithoutEstablishmentInput
+  owner: UserUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourUpdateManyWithoutEstablishmentInput
+  report: ReportUpdateManyWithoutEstablishmentInput
+  review: ReviewUpdateManyWithoutEstablishmentInput
+  service: ServiceUpdateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentUpdateManyWithoutEstablishmentInput
+  appointment: AppointmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateManyDataInput {
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+}
+
+input EstablishmentUpdateManyMutationInput {
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+}
+
+input EstablishmentUpdateManyWithoutDepartmentInput {
+  create: [EstablishmentCreateWithoutDepartmentInput!]
+  delete: [EstablishmentWhereUniqueInput!]
+  connect: [EstablishmentWhereUniqueInput!]
+  set: [EstablishmentWhereUniqueInput!]
+  disconnect: [EstablishmentWhereUniqueInput!]
+  update: [EstablishmentUpdateWithWhereUniqueWithoutDepartmentInput!]
+  upsert: [EstablishmentUpsertWithWhereUniqueWithoutDepartmentInput!]
+  deleteMany: [EstablishmentScalarWhereInput!]
+  updateMany: [EstablishmentUpdateManyWithWhereNestedInput!]
+}
+
+input EstablishmentUpdateManyWithoutOwnerInput {
+  create: [EstablishmentCreateWithoutOwnerInput!]
+  delete: [EstablishmentWhereUniqueInput!]
+  connect: [EstablishmentWhereUniqueInput!]
+  set: [EstablishmentWhereUniqueInput!]
+  disconnect: [EstablishmentWhereUniqueInput!]
+  update: [EstablishmentUpdateWithWhereUniqueWithoutOwnerInput!]
+  upsert: [EstablishmentUpsertWithWhereUniqueWithoutOwnerInput!]
+  deleteMany: [EstablishmentScalarWhereInput!]
+  updateMany: [EstablishmentUpdateManyWithWhereNestedInput!]
+}
+
+input EstablishmentUpdateManyWithWhereNestedInput {
+  where: EstablishmentScalarWhereInput!
+  data: EstablishmentUpdateManyDataInput!
+}
+
+input EstablishmentUpdateOneWithoutAppointmentInput {
+  create: EstablishmentCreateWithoutAppointmentInput
+  update: EstablishmentUpdateWithoutAppointmentDataInput
+  upsert: EstablishmentUpsertWithoutAppointmentInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentUpdateOneWithoutHoursInput {
+  create: EstablishmentCreateWithoutHoursInput
+  update: EstablishmentUpdateWithoutHoursDataInput
+  upsert: EstablishmentUpsertWithoutHoursInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentUpdateOneWithoutReportInput {
+  create: EstablishmentCreateWithoutReportInput
+  update: EstablishmentUpdateWithoutReportDataInput
+  upsert: EstablishmentUpsertWithoutReportInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentUpdateOneWithoutReviewInput {
+  create: EstablishmentCreateWithoutReviewInput
+  update: EstablishmentUpdateWithoutReviewDataInput
+  upsert: EstablishmentUpsertWithoutReviewInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentUpdateOneWithoutServiceInput {
+  create: EstablishmentCreateWithoutServiceInput
+  update: EstablishmentUpdateWithoutServiceDataInput
+  upsert: EstablishmentUpsertWithoutServiceInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentUpdateOneWithoutUserEstablishmentInput {
+  create: EstablishmentCreateWithoutUserEstablishmentInput
+  update: EstablishmentUpdateWithoutUserEstablishmentDataInput
+  upsert: EstablishmentUpsertWithoutUserEstablishmentInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: EstablishmentWhereUniqueInput
+}
+
+input EstablishmentUpdateWithoutAppointmentDataInput {
+  department: DepartmentUpdateOneWithoutEstablishmentInput
+  owner: UserUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourUpdateManyWithoutEstablishmentInput
+  report: ReportUpdateManyWithoutEstablishmentInput
+  review: ReviewUpdateManyWithoutEstablishmentInput
+  service: ServiceUpdateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateWithoutDepartmentDataInput {
+  owner: UserUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourUpdateManyWithoutEstablishmentInput
+  report: ReportUpdateManyWithoutEstablishmentInput
+  review: ReviewUpdateManyWithoutEstablishmentInput
+  service: ServiceUpdateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentUpdateManyWithoutEstablishmentInput
+  appointment: AppointmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateWithoutHoursDataInput {
+  department: DepartmentUpdateOneWithoutEstablishmentInput
+  owner: UserUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  report: ReportUpdateManyWithoutEstablishmentInput
+  review: ReviewUpdateManyWithoutEstablishmentInput
+  service: ServiceUpdateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentUpdateManyWithoutEstablishmentInput
+  appointment: AppointmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateWithoutOwnerDataInput {
+  department: DepartmentUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourUpdateManyWithoutEstablishmentInput
+  report: ReportUpdateManyWithoutEstablishmentInput
+  review: ReviewUpdateManyWithoutEstablishmentInput
+  service: ServiceUpdateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentUpdateManyWithoutEstablishmentInput
+  appointment: AppointmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateWithoutReportDataInput {
+  department: DepartmentUpdateOneWithoutEstablishmentInput
+  owner: UserUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourUpdateManyWithoutEstablishmentInput
+  review: ReviewUpdateManyWithoutEstablishmentInput
+  service: ServiceUpdateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentUpdateManyWithoutEstablishmentInput
+  appointment: AppointmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateWithoutReviewDataInput {
+  department: DepartmentUpdateOneWithoutEstablishmentInput
+  owner: UserUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourUpdateManyWithoutEstablishmentInput
+  report: ReportUpdateManyWithoutEstablishmentInput
+  service: ServiceUpdateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentUpdateManyWithoutEstablishmentInput
+  appointment: AppointmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateWithoutServiceDataInput {
+  department: DepartmentUpdateOneWithoutEstablishmentInput
+  owner: UserUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourUpdateManyWithoutEstablishmentInput
+  report: ReportUpdateManyWithoutEstablishmentInput
+  review: ReviewUpdateManyWithoutEstablishmentInput
+  userEstablishment: UserEstablishmentUpdateManyWithoutEstablishmentInput
+  appointment: AppointmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateWithoutUserEstablishmentDataInput {
+  department: DepartmentUpdateOneWithoutEstablishmentInput
+  owner: UserUpdateOneWithoutEstablishmentInput
+  commercialName: String
+  address: String
+  addressComplement: String
+  city: String
+  zipCode: String
+  siret: String
+  phoneNumber: String
+  contactEmail: String
+  illustration: String
+  name: String
+  description: String
+  active: Boolean
+  deletedAt: DateTime
+  hours: HourUpdateManyWithoutEstablishmentInput
+  report: ReportUpdateManyWithoutEstablishmentInput
+  review: ReviewUpdateManyWithoutEstablishmentInput
+  service: ServiceUpdateManyWithoutEstablishmentInput
+  appointment: AppointmentUpdateManyWithoutEstablishmentInput
+}
+
+input EstablishmentUpdateWithWhereUniqueWithoutDepartmentInput {
+  where: EstablishmentWhereUniqueInput!
+  data: EstablishmentUpdateWithoutDepartmentDataInput!
+}
+
+input EstablishmentUpdateWithWhereUniqueWithoutOwnerInput {
+  where: EstablishmentWhereUniqueInput!
+  data: EstablishmentUpdateWithoutOwnerDataInput!
+}
+
+input EstablishmentUpsertWithoutAppointmentInput {
+  update: EstablishmentUpdateWithoutAppointmentDataInput!
+  create: EstablishmentCreateWithoutAppointmentInput!
+}
+
+input EstablishmentUpsertWithoutHoursInput {
+  update: EstablishmentUpdateWithoutHoursDataInput!
+  create: EstablishmentCreateWithoutHoursInput!
+}
+
+input EstablishmentUpsertWithoutReportInput {
+  update: EstablishmentUpdateWithoutReportDataInput!
+  create: EstablishmentCreateWithoutReportInput!
+}
+
+input EstablishmentUpsertWithoutReviewInput {
+  update: EstablishmentUpdateWithoutReviewDataInput!
+  create: EstablishmentCreateWithoutReviewInput!
+}
+
+input EstablishmentUpsertWithoutServiceInput {
+  update: EstablishmentUpdateWithoutServiceDataInput!
+  create: EstablishmentCreateWithoutServiceInput!
+}
+
+input EstablishmentUpsertWithoutUserEstablishmentInput {
+  update: EstablishmentUpdateWithoutUserEstablishmentDataInput!
+  create: EstablishmentCreateWithoutUserEstablishmentInput!
+}
+
+input EstablishmentUpsertWithWhereUniqueWithoutDepartmentInput {
+  where: EstablishmentWhereUniqueInput!
+  update: EstablishmentUpdateWithoutDepartmentDataInput!
+  create: EstablishmentCreateWithoutDepartmentInput!
+}
+
+input EstablishmentUpsertWithWhereUniqueWithoutOwnerInput {
+  where: EstablishmentWhereUniqueInput!
+  update: EstablishmentUpdateWithoutOwnerDataInput!
+  create: EstablishmentCreateWithoutOwnerInput!
+}
+
+input EstablishmentWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  department: DepartmentWhereInput
+  owner: UserWhereInput
+  commercialName: String
+  commercialName_not: String
+  commercialName_in: [String!]
+  commercialName_not_in: [String!]
+  commercialName_lt: String
+  commercialName_lte: String
+  commercialName_gt: String
+  commercialName_gte: String
+  commercialName_contains: String
+  commercialName_not_contains: String
+  commercialName_starts_with: String
+  commercialName_not_starts_with: String
+  commercialName_ends_with: String
+  commercialName_not_ends_with: String
+  address: String
+  address_not: String
+  address_in: [String!]
+  address_not_in: [String!]
+  address_lt: String
+  address_lte: String
+  address_gt: String
+  address_gte: String
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_not_starts_with: String
+  address_ends_with: String
+  address_not_ends_with: String
+  addressComplement: String
+  addressComplement_not: String
+  addressComplement_in: [String!]
+  addressComplement_not_in: [String!]
+  addressComplement_lt: String
+  addressComplement_lte: String
+  addressComplement_gt: String
+  addressComplement_gte: String
+  addressComplement_contains: String
+  addressComplement_not_contains: String
+  addressComplement_starts_with: String
+  addressComplement_not_starts_with: String
+  addressComplement_ends_with: String
+  addressComplement_not_ends_with: String
+  city: String
+  city_not: String
+  city_in: [String!]
+  city_not_in: [String!]
+  city_lt: String
+  city_lte: String
+  city_gt: String
+  city_gte: String
+  city_contains: String
+  city_not_contains: String
+  city_starts_with: String
+  city_not_starts_with: String
+  city_ends_with: String
+  city_not_ends_with: String
   zipCode: String
   zipCode_not: String
   zipCode_in: [String!]
@@ -729,112 +1857,90 @@ input establishmentWhereInput {
   zipCode_not_starts_with: String
   zipCode_ends_with: String
   zipCode_not_ends_with: String
-  AND: [establishmentWhereInput!]
-  OR: [establishmentWhereInput!]
-  NOT: [establishmentWhereInput!]
-}
-
-input establishmentWhereUniqueInput {
-  id: Int
-}
-
-type hour {
-  id: Int!
-  active: Boolean!
-  createdAt: DateTime!
-  endHour: DateTime
-  nbBarber: Int
-  startHour: DateTime
-  updatedAt: DateTime!
-}
-
-type hourConnection {
-  pageInfo: PageInfo!
-  edges: [hourEdge]!
-  aggregate: Aggregatehour!
-}
-
-input hourCreateInput {
-  id: Int
-  active: Boolean
-  endHour: DateTime
-  nbBarber: Int
-  startHour: DateTime
-}
-
-type hourEdge {
-  node: hour!
-  cursor: String!
-}
-
-enum hourOrderByInput {
-  id_ASC
-  id_DESC
-  active_ASC
-  active_DESC
-  createdAt_ASC
-  createdAt_DESC
-  endHour_ASC
-  endHour_DESC
-  nbBarber_ASC
-  nbBarber_DESC
-  startHour_ASC
-  startHour_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type hourPreviousValues {
-  id: Int!
-  active: Boolean!
-  createdAt: DateTime!
-  endHour: DateTime
-  nbBarber: Int
-  startHour: DateTime
-  updatedAt: DateTime!
-}
-
-type hourSubscriptionPayload {
-  mutation: MutationType!
-  node: hour
-  updatedFields: [String!]
-  previousValues: hourPreviousValues
-}
-
-input hourSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: hourWhereInput
-  AND: [hourSubscriptionWhereInput!]
-  OR: [hourSubscriptionWhereInput!]
-  NOT: [hourSubscriptionWhereInput!]
-}
-
-input hourUpdateInput {
-  active: Boolean
-  endHour: DateTime
-  nbBarber: Int
-  startHour: DateTime
-}
-
-input hourUpdateManyMutationInput {
-  active: Boolean
-  endHour: DateTime
-  nbBarber: Int
-  startHour: DateTime
-}
-
-input hourWhereInput {
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
+  siret: String
+  siret_not: String
+  siret_in: [String!]
+  siret_not_in: [String!]
+  siret_lt: String
+  siret_lte: String
+  siret_gt: String
+  siret_gte: String
+  siret_contains: String
+  siret_not_contains: String
+  siret_starts_with: String
+  siret_not_starts_with: String
+  siret_ends_with: String
+  siret_not_ends_with: String
+  phoneNumber: String
+  phoneNumber_not: String
+  phoneNumber_in: [String!]
+  phoneNumber_not_in: [String!]
+  phoneNumber_lt: String
+  phoneNumber_lte: String
+  phoneNumber_gt: String
+  phoneNumber_gte: String
+  phoneNumber_contains: String
+  phoneNumber_not_contains: String
+  phoneNumber_starts_with: String
+  phoneNumber_not_starts_with: String
+  phoneNumber_ends_with: String
+  phoneNumber_not_ends_with: String
+  contactEmail: String
+  contactEmail_not: String
+  contactEmail_in: [String!]
+  contactEmail_not_in: [String!]
+  contactEmail_lt: String
+  contactEmail_lte: String
+  contactEmail_gt: String
+  contactEmail_gte: String
+  contactEmail_contains: String
+  contactEmail_not_contains: String
+  contactEmail_starts_with: String
+  contactEmail_not_starts_with: String
+  contactEmail_ends_with: String
+  contactEmail_not_ends_with: String
+  illustration: String
+  illustration_not: String
+  illustration_in: [String!]
+  illustration_not_in: [String!]
+  illustration_lt: String
+  illustration_lte: String
+  illustration_gt: String
+  illustration_gte: String
+  illustration_contains: String
+  illustration_not_contains: String
+  illustration_starts_with: String
+  illustration_not_starts_with: String
+  illustration_ends_with: String
+  illustration_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
   active: Boolean
   active_not: Boolean
   createdAt: DateTime
@@ -845,6 +1951,173 @@ input hourWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  hours_every: HourWhereInput
+  hours_some: HourWhereInput
+  hours_none: HourWhereInput
+  report_every: ReportWhereInput
+  report_some: ReportWhereInput
+  report_none: ReportWhereInput
+  review_every: ReviewWhereInput
+  review_some: ReviewWhereInput
+  review_none: ReviewWhereInput
+  service_every: ServiceWhereInput
+  service_some: ServiceWhereInput
+  service_none: ServiceWhereInput
+  userEstablishment_every: UserEstablishmentWhereInput
+  userEstablishment_some: UserEstablishmentWhereInput
+  userEstablishment_none: UserEstablishmentWhereInput
+  appointment_every: AppointmentWhereInput
+  appointment_some: AppointmentWhereInput
+  appointment_none: AppointmentWhereInput
+  AND: [EstablishmentWhereInput!]
+  OR: [EstablishmentWhereInput!]
+  NOT: [EstablishmentWhereInput!]
+}
+
+input EstablishmentWhereUniqueInput {
+  id: Int
+}
+
+type Hour {
+  id: Int!
+  establishment: Establishment
+  day: Day
+  typeOfShift: TypeOfShift
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type HourConnection {
+  pageInfo: PageInfo!
+  edges: [HourEdge]!
+  aggregate: AggregateHour!
+}
+
+input HourCreateInput {
+  id: Int
+  establishment: EstablishmentCreateOneWithoutHoursInput
+  day: DayCreateOneWithoutHoursInput
+  typeOfShift: TypeOfShiftCreateOneWithoutHoursInput
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourCreateManyWithoutDayInput {
+  create: [HourCreateWithoutDayInput!]
+  connect: [HourWhereUniqueInput!]
+}
+
+input HourCreateManyWithoutEstablishmentInput {
+  create: [HourCreateWithoutEstablishmentInput!]
+  connect: [HourWhereUniqueInput!]
+}
+
+input HourCreateManyWithoutTypeOfShiftInput {
+  create: [HourCreateWithoutTypeOfShiftInput!]
+  connect: [HourWhereUniqueInput!]
+}
+
+input HourCreateWithoutDayInput {
+  id: Int
+  establishment: EstablishmentCreateOneWithoutHoursInput
+  typeOfShift: TypeOfShiftCreateOneWithoutHoursInput
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourCreateWithoutEstablishmentInput {
+  id: Int
+  day: DayCreateOneWithoutHoursInput
+  typeOfShift: TypeOfShiftCreateOneWithoutHoursInput
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourCreateWithoutTypeOfShiftInput {
+  id: Int
+  establishment: EstablishmentCreateOneWithoutHoursInput
+  day: DayCreateOneWithoutHoursInput
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+type HourEdge {
+  node: Hour!
+  cursor: String!
+}
+
+enum HourOrderByInput {
+  id_ASC
+  id_DESC
+  startHour_ASC
+  startHour_DESC
+  endHour_ASC
+  endHour_DESC
+  nbBarber_ASC
+  nbBarber_DESC
+  active_ASC
+  active_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type HourPreviousValues {
+  id: Int!
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input HourScalarWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  startHour: DateTime
+  startHour_not: DateTime
+  startHour_in: [DateTime!]
+  startHour_not_in: [DateTime!]
+  startHour_lt: DateTime
+  startHour_lte: DateTime
+  startHour_gt: DateTime
+  startHour_gte: DateTime
   endHour: DateTime
   endHour_not: DateTime
   endHour_in: [DateTime!]
@@ -861,14 +2134,16 @@ input hourWhereInput {
   nbBarber_lte: Int
   nbBarber_gt: Int
   nbBarber_gte: Int
-  startHour: DateTime
-  startHour_not: DateTime
-  startHour_in: [DateTime!]
-  startHour_not_in: [DateTime!]
-  startHour_lt: DateTime
-  startHour_lte: DateTime
-  startHour_gt: DateTime
-  startHour_gte: DateTime
+  active: Boolean
+  active_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -877,12 +2152,214 @@ input hourWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  AND: [hourWhereInput!]
-  OR: [hourWhereInput!]
-  NOT: [hourWhereInput!]
+  AND: [HourScalarWhereInput!]
+  OR: [HourScalarWhereInput!]
+  NOT: [HourScalarWhereInput!]
 }
 
-input hourWhereUniqueInput {
+type HourSubscriptionPayload {
+  mutation: MutationType!
+  node: Hour
+  updatedFields: [String!]
+  previousValues: HourPreviousValues
+}
+
+input HourSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: HourWhereInput
+  AND: [HourSubscriptionWhereInput!]
+  OR: [HourSubscriptionWhereInput!]
+  NOT: [HourSubscriptionWhereInput!]
+}
+
+input HourUpdateInput {
+  establishment: EstablishmentUpdateOneWithoutHoursInput
+  day: DayUpdateOneWithoutHoursInput
+  typeOfShift: TypeOfShiftUpdateOneWithoutHoursInput
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourUpdateManyDataInput {
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourUpdateManyMutationInput {
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourUpdateManyWithoutDayInput {
+  create: [HourCreateWithoutDayInput!]
+  delete: [HourWhereUniqueInput!]
+  connect: [HourWhereUniqueInput!]
+  set: [HourWhereUniqueInput!]
+  disconnect: [HourWhereUniqueInput!]
+  update: [HourUpdateWithWhereUniqueWithoutDayInput!]
+  upsert: [HourUpsertWithWhereUniqueWithoutDayInput!]
+  deleteMany: [HourScalarWhereInput!]
+  updateMany: [HourUpdateManyWithWhereNestedInput!]
+}
+
+input HourUpdateManyWithoutEstablishmentInput {
+  create: [HourCreateWithoutEstablishmentInput!]
+  delete: [HourWhereUniqueInput!]
+  connect: [HourWhereUniqueInput!]
+  set: [HourWhereUniqueInput!]
+  disconnect: [HourWhereUniqueInput!]
+  update: [HourUpdateWithWhereUniqueWithoutEstablishmentInput!]
+  upsert: [HourUpsertWithWhereUniqueWithoutEstablishmentInput!]
+  deleteMany: [HourScalarWhereInput!]
+  updateMany: [HourUpdateManyWithWhereNestedInput!]
+}
+
+input HourUpdateManyWithoutTypeOfShiftInput {
+  create: [HourCreateWithoutTypeOfShiftInput!]
+  delete: [HourWhereUniqueInput!]
+  connect: [HourWhereUniqueInput!]
+  set: [HourWhereUniqueInput!]
+  disconnect: [HourWhereUniqueInput!]
+  update: [HourUpdateWithWhereUniqueWithoutTypeOfShiftInput!]
+  upsert: [HourUpsertWithWhereUniqueWithoutTypeOfShiftInput!]
+  deleteMany: [HourScalarWhereInput!]
+  updateMany: [HourUpdateManyWithWhereNestedInput!]
+}
+
+input HourUpdateManyWithWhereNestedInput {
+  where: HourScalarWhereInput!
+  data: HourUpdateManyDataInput!
+}
+
+input HourUpdateWithoutDayDataInput {
+  establishment: EstablishmentUpdateOneWithoutHoursInput
+  typeOfShift: TypeOfShiftUpdateOneWithoutHoursInput
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourUpdateWithoutEstablishmentDataInput {
+  day: DayUpdateOneWithoutHoursInput
+  typeOfShift: TypeOfShiftUpdateOneWithoutHoursInput
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourUpdateWithoutTypeOfShiftDataInput {
+  establishment: EstablishmentUpdateOneWithoutHoursInput
+  day: DayUpdateOneWithoutHoursInput
+  startHour: DateTime
+  endHour: DateTime
+  nbBarber: Int
+  active: Boolean
+}
+
+input HourUpdateWithWhereUniqueWithoutDayInput {
+  where: HourWhereUniqueInput!
+  data: HourUpdateWithoutDayDataInput!
+}
+
+input HourUpdateWithWhereUniqueWithoutEstablishmentInput {
+  where: HourWhereUniqueInput!
+  data: HourUpdateWithoutEstablishmentDataInput!
+}
+
+input HourUpdateWithWhereUniqueWithoutTypeOfShiftInput {
+  where: HourWhereUniqueInput!
+  data: HourUpdateWithoutTypeOfShiftDataInput!
+}
+
+input HourUpsertWithWhereUniqueWithoutDayInput {
+  where: HourWhereUniqueInput!
+  update: HourUpdateWithoutDayDataInput!
+  create: HourCreateWithoutDayInput!
+}
+
+input HourUpsertWithWhereUniqueWithoutEstablishmentInput {
+  where: HourWhereUniqueInput!
+  update: HourUpdateWithoutEstablishmentDataInput!
+  create: HourCreateWithoutEstablishmentInput!
+}
+
+input HourUpsertWithWhereUniqueWithoutTypeOfShiftInput {
+  where: HourWhereUniqueInput!
+  update: HourUpdateWithoutTypeOfShiftDataInput!
+  create: HourCreateWithoutTypeOfShiftInput!
+}
+
+input HourWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  establishment: EstablishmentWhereInput
+  day: DayWhereInput
+  typeOfShift: TypeOfShiftWhereInput
+  startHour: DateTime
+  startHour_not: DateTime
+  startHour_in: [DateTime!]
+  startHour_not_in: [DateTime!]
+  startHour_lt: DateTime
+  startHour_lte: DateTime
+  startHour_gt: DateTime
+  startHour_gte: DateTime
+  endHour: DateTime
+  endHour_not: DateTime
+  endHour_in: [DateTime!]
+  endHour_not_in: [DateTime!]
+  endHour_lt: DateTime
+  endHour_lte: DateTime
+  endHour_gt: DateTime
+  endHour_gte: DateTime
+  nbBarber: Int
+  nbBarber_not: Int
+  nbBarber_in: [Int!]
+  nbBarber_not_in: [Int!]
+  nbBarber_lt: Int
+  nbBarber_lte: Int
+  nbBarber_gt: Int
+  nbBarber_gte: Int
+  active: Boolean
+  active_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [HourWhereInput!]
+  OR: [HourWhereInput!]
+  NOT: [HourWhereInput!]
+}
+
+input HourWhereUniqueInput {
   id: Int
 }
 
@@ -891,72 +2368,78 @@ scalar Json
 scalar Long
 
 type Mutation {
-  createappointment(data: appointmentCreateInput!): appointment!
-  updateappointment(data: appointmentUpdateInput!, where: appointmentWhereUniqueInput!): appointment
-  updateManyappointments(data: appointmentUpdateManyMutationInput!, where: appointmentWhereInput): BatchPayload!
-  upsertappointment(where: appointmentWhereUniqueInput!, create: appointmentCreateInput!, update: appointmentUpdateInput!): appointment!
-  deleteappointment(where: appointmentWhereUniqueInput!): appointment
-  deleteManyappointments(where: appointmentWhereInput): BatchPayload!
-  createday(data: dayCreateInput!): day!
-  updateday(data: dayUpdateInput!, where: dayWhereUniqueInput!): day
-  updateManydays(data: dayUpdateManyMutationInput!, where: dayWhereInput): BatchPayload!
-  upsertday(where: dayWhereUniqueInput!, create: dayCreateInput!, update: dayUpdateInput!): day!
-  deleteday(where: dayWhereUniqueInput!): day
-  deleteManydays(where: dayWhereInput): BatchPayload!
-  createdepartment(data: departmentCreateInput!): department!
-  updatedepartment(data: departmentUpdateInput!, where: departmentWhereUniqueInput!): department
-  updateManydepartments(data: departmentUpdateManyMutationInput!, where: departmentWhereInput): BatchPayload!
-  upsertdepartment(where: departmentWhereUniqueInput!, create: departmentCreateInput!, update: departmentUpdateInput!): department!
-  deletedepartment(where: departmentWhereUniqueInput!): department
-  deleteManydepartments(where: departmentWhereInput): BatchPayload!
-  createestablishment(data: establishmentCreateInput!): establishment!
-  updateestablishment(data: establishmentUpdateInput!, where: establishmentWhereUniqueInput!): establishment
-  updateManyestablishments(data: establishmentUpdateManyMutationInput!, where: establishmentWhereInput): BatchPayload!
-  upsertestablishment(where: establishmentWhereUniqueInput!, create: establishmentCreateInput!, update: establishmentUpdateInput!): establishment!
-  deleteestablishment(where: establishmentWhereUniqueInput!): establishment
-  deleteManyestablishments(where: establishmentWhereInput): BatchPayload!
-  createhour(data: hourCreateInput!): hour!
-  updatehour(data: hourUpdateInput!, where: hourWhereUniqueInput!): hour
-  updateManyhours(data: hourUpdateManyMutationInput!, where: hourWhereInput): BatchPayload!
-  upserthour(where: hourWhereUniqueInput!, create: hourCreateInput!, update: hourUpdateInput!): hour!
-  deletehour(where: hourWhereUniqueInput!): hour
-  deleteManyhours(where: hourWhereInput): BatchPayload!
-  createreport(data: reportCreateInput!): report!
-  updatereport(data: reportUpdateInput!, where: reportWhereUniqueInput!): report
-  updateManyreports(data: reportUpdateManyMutationInput!, where: reportWhereInput): BatchPayload!
-  upsertreport(where: reportWhereUniqueInput!, create: reportCreateInput!, update: reportUpdateInput!): report!
-  deletereport(where: reportWhereUniqueInput!): report
-  deleteManyreports(where: reportWhereInput): BatchPayload!
-  createreview(data: reviewCreateInput!): review!
-  updatereview(data: reviewUpdateInput!, where: reviewWhereUniqueInput!): review
-  updateManyreviews(data: reviewUpdateManyMutationInput!, where: reviewWhereInput): BatchPayload!
-  upsertreview(where: reviewWhereUniqueInput!, create: reviewCreateInput!, update: reviewUpdateInput!): review!
-  deletereview(where: reviewWhereUniqueInput!): review
-  deleteManyreviews(where: reviewWhereInput): BatchPayload!
-  createservice(data: serviceCreateInput!): service!
-  updateservice(data: serviceUpdateInput!, where: serviceWhereUniqueInput!): service
-  updateManyservices(data: serviceUpdateManyMutationInput!, where: serviceWhereInput): BatchPayload!
-  upsertservice(where: serviceWhereUniqueInput!, create: serviceCreateInput!, update: serviceUpdateInput!): service!
-  deleteservice(where: serviceWhereUniqueInput!): service
-  deleteManyservices(where: serviceWhereInput): BatchPayload!
-  createtypeofshift(data: typeofshiftCreateInput!): typeofshift!
-  updatetypeofshift(data: typeofshiftUpdateInput!, where: typeofshiftWhereUniqueInput!): typeofshift
-  updateManytypeofshifts(data: typeofshiftUpdateManyMutationInput!, where: typeofshiftWhereInput): BatchPayload!
-  upserttypeofshift(where: typeofshiftWhereUniqueInput!, create: typeofshiftCreateInput!, update: typeofshiftUpdateInput!): typeofshift!
-  deletetypeofshift(where: typeofshiftWhereUniqueInput!): typeofshift
-  deleteManytypeofshifts(where: typeofshiftWhereInput): BatchPayload!
-  createuser(data: userCreateInput!): user!
-  updateuser(data: userUpdateInput!, where: userWhereUniqueInput!): user
-  updateManyusers(data: userUpdateManyMutationInput!, where: userWhereInput): BatchPayload!
-  upsertuser(where: userWhereUniqueInput!, create: userCreateInput!, update: userUpdateInput!): user!
-  deleteuser(where: userWhereUniqueInput!): user
-  deleteManyusers(where: userWhereInput): BatchPayload!
-  createuserestablishment(data: userestablishmentCreateInput!): userestablishment!
-  updateuserestablishment(data: userestablishmentUpdateInput!, where: userestablishmentWhereUniqueInput!): userestablishment
-  updateManyuserestablishments(data: userestablishmentUpdateManyMutationInput!, where: userestablishmentWhereInput): BatchPayload!
-  upsertuserestablishment(where: userestablishmentWhereUniqueInput!, create: userestablishmentCreateInput!, update: userestablishmentUpdateInput!): userestablishment!
-  deleteuserestablishment(where: userestablishmentWhereUniqueInput!): userestablishment
-  deleteManyuserestablishments(where: userestablishmentWhereInput): BatchPayload!
+  createAppointment(data: AppointmentCreateInput!): Appointment!
+  updateAppointment(data: AppointmentUpdateInput!, where: AppointmentWhereUniqueInput!): Appointment
+  updateManyAppointments(data: AppointmentUpdateManyMutationInput!, where: AppointmentWhereInput): BatchPayload!
+  upsertAppointment(where: AppointmentWhereUniqueInput!, create: AppointmentCreateInput!, update: AppointmentUpdateInput!): Appointment!
+  deleteAppointment(where: AppointmentWhereUniqueInput!): Appointment
+  deleteManyAppointments(where: AppointmentWhereInput): BatchPayload!
+  createAppointmentStatus(data: AppointmentStatusCreateInput!): AppointmentStatus!
+  updateAppointmentStatus(data: AppointmentStatusUpdateInput!, where: AppointmentStatusWhereUniqueInput!): AppointmentStatus
+  updateManyAppointmentStatuses(data: AppointmentStatusUpdateManyMutationInput!, where: AppointmentStatusWhereInput): BatchPayload!
+  upsertAppointmentStatus(where: AppointmentStatusWhereUniqueInput!, create: AppointmentStatusCreateInput!, update: AppointmentStatusUpdateInput!): AppointmentStatus!
+  deleteAppointmentStatus(where: AppointmentStatusWhereUniqueInput!): AppointmentStatus
+  deleteManyAppointmentStatuses(where: AppointmentStatusWhereInput): BatchPayload!
+  createDay(data: DayCreateInput!): Day!
+  updateDay(data: DayUpdateInput!, where: DayWhereUniqueInput!): Day
+  updateManyDays(data: DayUpdateManyMutationInput!, where: DayWhereInput): BatchPayload!
+  upsertDay(where: DayWhereUniqueInput!, create: DayCreateInput!, update: DayUpdateInput!): Day!
+  deleteDay(where: DayWhereUniqueInput!): Day
+  deleteManyDays(where: DayWhereInput): BatchPayload!
+  createDepartment(data: DepartmentCreateInput!): Department!
+  updateDepartment(data: DepartmentUpdateInput!, where: DepartmentWhereUniqueInput!): Department
+  updateManyDepartments(data: DepartmentUpdateManyMutationInput!, where: DepartmentWhereInput): BatchPayload!
+  upsertDepartment(where: DepartmentWhereUniqueInput!, create: DepartmentCreateInput!, update: DepartmentUpdateInput!): Department!
+  deleteDepartment(where: DepartmentWhereUniqueInput!): Department
+  deleteManyDepartments(where: DepartmentWhereInput): BatchPayload!
+  createEstablishment(data: EstablishmentCreateInput!): Establishment!
+  updateEstablishment(data: EstablishmentUpdateInput!, where: EstablishmentWhereUniqueInput!): Establishment
+  updateManyEstablishments(data: EstablishmentUpdateManyMutationInput!, where: EstablishmentWhereInput): BatchPayload!
+  upsertEstablishment(where: EstablishmentWhereUniqueInput!, create: EstablishmentCreateInput!, update: EstablishmentUpdateInput!): Establishment!
+  deleteEstablishment(where: EstablishmentWhereUniqueInput!): Establishment
+  deleteManyEstablishments(where: EstablishmentWhereInput): BatchPayload!
+  createHour(data: HourCreateInput!): Hour!
+  updateHour(data: HourUpdateInput!, where: HourWhereUniqueInput!): Hour
+  updateManyHours(data: HourUpdateManyMutationInput!, where: HourWhereInput): BatchPayload!
+  upsertHour(where: HourWhereUniqueInput!, create: HourCreateInput!, update: HourUpdateInput!): Hour!
+  deleteHour(where: HourWhereUniqueInput!): Hour
+  deleteManyHours(where: HourWhereInput): BatchPayload!
+  createReport(data: ReportCreateInput!): Report!
+  updateReport(data: ReportUpdateInput!, where: ReportWhereUniqueInput!): Report
+  updateManyReports(data: ReportUpdateManyMutationInput!, where: ReportWhereInput): BatchPayload!
+  upsertReport(where: ReportWhereUniqueInput!, create: ReportCreateInput!, update: ReportUpdateInput!): Report!
+  deleteReport(where: ReportWhereUniqueInput!): Report
+  deleteManyReports(where: ReportWhereInput): BatchPayload!
+  createReview(data: ReviewCreateInput!): Review!
+  updateReview(data: ReviewUpdateInput!, where: ReviewWhereUniqueInput!): Review
+  updateManyReviews(data: ReviewUpdateManyMutationInput!, where: ReviewWhereInput): BatchPayload!
+  upsertReview(where: ReviewWhereUniqueInput!, create: ReviewCreateInput!, update: ReviewUpdateInput!): Review!
+  deleteReview(where: ReviewWhereUniqueInput!): Review
+  deleteManyReviews(where: ReviewWhereInput): BatchPayload!
+  createService(data: ServiceCreateInput!): Service!
+  updateService(data: ServiceUpdateInput!, where: ServiceWhereUniqueInput!): Service
+  updateManyServices(data: ServiceUpdateManyMutationInput!, where: ServiceWhereInput): BatchPayload!
+  upsertService(where: ServiceWhereUniqueInput!, create: ServiceCreateInput!, update: ServiceUpdateInput!): Service!
+  deleteService(where: ServiceWhereUniqueInput!): Service
+  deleteManyServices(where: ServiceWhereInput): BatchPayload!
+  createTypeOfShift(data: TypeOfShiftCreateInput!): TypeOfShift!
+  updateTypeOfShift(data: TypeOfShiftUpdateInput!, where: TypeOfShiftWhereUniqueInput!): TypeOfShift
+  updateManyTypeOfShifts(data: TypeOfShiftUpdateManyMutationInput!, where: TypeOfShiftWhereInput): BatchPayload!
+  upsertTypeOfShift(where: TypeOfShiftWhereUniqueInput!, create: TypeOfShiftCreateInput!, update: TypeOfShiftUpdateInput!): TypeOfShift!
+  deleteTypeOfShift(where: TypeOfShiftWhereUniqueInput!): TypeOfShift
+  deleteManyTypeOfShifts(where: TypeOfShiftWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createUserEstablishment(data: UserEstablishmentCreateInput!): UserEstablishment!
+  updateUserEstablishment(data: UserEstablishmentUpdateInput!, where: UserEstablishmentWhereUniqueInput!): UserEstablishment
+  updateManyUserEstablishments(data: UserEstablishmentUpdateManyMutationInput!, where: UserEstablishmentWhereInput): BatchPayload!
+  upsertUserEstablishment(where: UserEstablishmentWhereUniqueInput!, create: UserEstablishmentCreateInput!, update: UserEstablishmentUpdateInput!): UserEstablishment!
+  deleteUserEstablishment(where: UserEstablishmentWhereUniqueInput!): UserEstablishment
+  deleteManyUserEstablishments(where: UserEstablishmentWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -977,124 +2460,127 @@ type PageInfo {
 }
 
 type Query {
-  appointment(where: appointmentWhereUniqueInput!): appointment
-  appointments(where: appointmentWhereInput, orderBy: appointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [appointment]!
-  appointmentsConnection(where: appointmentWhereInput, orderBy: appointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): appointmentConnection!
-  day(where: dayWhereUniqueInput!): day
-  days(where: dayWhereInput, orderBy: dayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [day]!
-  daysConnection(where: dayWhereInput, orderBy: dayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): dayConnection!
-  department(where: departmentWhereUniqueInput!): department
-  departments(where: departmentWhereInput, orderBy: departmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [department]!
-  departmentsConnection(where: departmentWhereInput, orderBy: departmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): departmentConnection!
-  establishment(where: establishmentWhereUniqueInput!): establishment
-  establishments(where: establishmentWhereInput, orderBy: establishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [establishment]!
-  establishmentsConnection(where: establishmentWhereInput, orderBy: establishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): establishmentConnection!
-  hour(where: hourWhereUniqueInput!): hour
-  hours(where: hourWhereInput, orderBy: hourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [hour]!
-  hoursConnection(where: hourWhereInput, orderBy: hourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): hourConnection!
-  report(where: reportWhereUniqueInput!): report
-  reports(where: reportWhereInput, orderBy: reportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [report]!
-  reportsConnection(where: reportWhereInput, orderBy: reportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): reportConnection!
-  review(where: reviewWhereUniqueInput!): review
-  reviews(where: reviewWhereInput, orderBy: reviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [review]!
-  reviewsConnection(where: reviewWhereInput, orderBy: reviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): reviewConnection!
-  service(where: serviceWhereUniqueInput!): service
-  services(where: serviceWhereInput, orderBy: serviceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [service]!
-  servicesConnection(where: serviceWhereInput, orderBy: serviceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): serviceConnection!
-  typeofshift(where: typeofshiftWhereUniqueInput!): typeofshift
-  typeofshifts(where: typeofshiftWhereInput, orderBy: typeofshiftOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [typeofshift]!
-  typeofshiftsConnection(where: typeofshiftWhereInput, orderBy: typeofshiftOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): typeofshiftConnection!
-  user(where: userWhereUniqueInput!): user
-  users(where: userWhereInput, orderBy: userOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [user]!
-  usersConnection(where: userWhereInput, orderBy: userOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): userConnection!
-  userestablishment(where: userestablishmentWhereUniqueInput!): userestablishment
-  userestablishments(where: userestablishmentWhereInput, orderBy: userestablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [userestablishment]!
-  userestablishmentsConnection(where: userestablishmentWhereInput, orderBy: userestablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): userestablishmentConnection!
+  appointment(where: AppointmentWhereUniqueInput!): Appointment
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment]!
+  appointmentsConnection(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AppointmentConnection!
+  appointmentStatus(where: AppointmentStatusWhereUniqueInput!): AppointmentStatus
+  appointmentStatuses(where: AppointmentStatusWhereInput, orderBy: AppointmentStatusOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AppointmentStatus]!
+  appointmentStatusesConnection(where: AppointmentStatusWhereInput, orderBy: AppointmentStatusOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AppointmentStatusConnection!
+  day(where: DayWhereUniqueInput!): Day
+  days(where: DayWhereInput, orderBy: DayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Day]!
+  daysConnection(where: DayWhereInput, orderBy: DayOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DayConnection!
+  department(where: DepartmentWhereUniqueInput!): Department
+  departments(where: DepartmentWhereInput, orderBy: DepartmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Department]!
+  departmentsConnection(where: DepartmentWhereInput, orderBy: DepartmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DepartmentConnection!
+  establishment(where: EstablishmentWhereUniqueInput!): Establishment
+  establishments(where: EstablishmentWhereInput, orderBy: EstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Establishment]!
+  establishmentsConnection(where: EstablishmentWhereInput, orderBy: EstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EstablishmentConnection!
+  hour(where: HourWhereUniqueInput!): Hour
+  hours(where: HourWhereInput, orderBy: HourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hour]!
+  hoursConnection(where: HourWhereInput, orderBy: HourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HourConnection!
+  report(where: ReportWhereUniqueInput!): Report
+  reports(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Report]!
+  reportsConnection(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReportConnection!
+  review(where: ReviewWhereUniqueInput!): Review
+  reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review]!
+  reviewsConnection(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReviewConnection!
+  service(where: ServiceWhereUniqueInput!): Service
+  services(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Service]!
+  servicesConnection(where: ServiceWhereInput, orderBy: ServiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ServiceConnection!
+  typeOfShift(where: TypeOfShiftWhereUniqueInput!): TypeOfShift
+  typeOfShifts(where: TypeOfShiftWhereInput, orderBy: TypeOfShiftOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TypeOfShift]!
+  typeOfShiftsConnection(where: TypeOfShiftWhereInput, orderBy: TypeOfShiftOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TypeOfShiftConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  userEstablishment(where: UserEstablishmentWhereUniqueInput!): UserEstablishment
+  userEstablishments(where: UserEstablishmentWhereInput, orderBy: UserEstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserEstablishment]!
+  userEstablishmentsConnection(where: UserEstablishmentWhereInput, orderBy: UserEstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserEstablishmentConnection!
   node(id: ID!): Node
 }
 
-type report {
+type Report {
   id: Int!
+  author: User
+  establishment: Establishment
+  title: String
   content: String
   createdAt: DateTime!
-  deletedAt: DateTime
-  title: String
   updatedAt: DateTime!
+  deletedAt: DateTime
 }
 
-type reportConnection {
+type ReportConnection {
   pageInfo: PageInfo!
-  edges: [reportEdge]!
-  aggregate: Aggregatereport!
+  edges: [ReportEdge]!
+  aggregate: AggregateReport!
 }
 
-input reportCreateInput {
+input ReportCreateInput {
   id: Int
+  author: UserCreateOneWithoutReportInput
+  establishment: EstablishmentCreateOneWithoutReportInput
+  title: String
   content: String
   deletedAt: DateTime
-  title: String
 }
 
-type reportEdge {
-  node: report!
+input ReportCreateManyWithoutAuthorInput {
+  create: [ReportCreateWithoutAuthorInput!]
+  connect: [ReportWhereUniqueInput!]
+}
+
+input ReportCreateManyWithoutEstablishmentInput {
+  create: [ReportCreateWithoutEstablishmentInput!]
+  connect: [ReportWhereUniqueInput!]
+}
+
+input ReportCreateWithoutAuthorInput {
+  id: Int
+  establishment: EstablishmentCreateOneWithoutReportInput
+  title: String
+  content: String
+  deletedAt: DateTime
+}
+
+input ReportCreateWithoutEstablishmentInput {
+  id: Int
+  author: UserCreateOneWithoutReportInput
+  title: String
+  content: String
+  deletedAt: DateTime
+}
+
+type ReportEdge {
+  node: Report!
   cursor: String!
 }
 
-enum reportOrderByInput {
+enum ReportOrderByInput {
   id_ASC
   id_DESC
+  title_ASC
+  title_DESC
   content_ASC
   content_DESC
   createdAt_ASC
   createdAt_DESC
-  deletedAt_ASC
-  deletedAt_DESC
-  title_ASC
-  title_DESC
   updatedAt_ASC
   updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
 }
 
-type reportPreviousValues {
+type ReportPreviousValues {
   id: Int!
+  title: String
   content: String
   createdAt: DateTime!
-  deletedAt: DateTime
-  title: String
   updatedAt: DateTime!
-}
-
-type reportSubscriptionPayload {
-  mutation: MutationType!
-  node: report
-  updatedFields: [String!]
-  previousValues: reportPreviousValues
-}
-
-input reportSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: reportWhereInput
-  AND: [reportSubscriptionWhereInput!]
-  OR: [reportSubscriptionWhereInput!]
-  NOT: [reportSubscriptionWhereInput!]
-}
-
-input reportUpdateInput {
-  content: String
   deletedAt: DateTime
-  title: String
 }
 
-input reportUpdateManyMutationInput {
-  content: String
-  deletedAt: DateTime
-  title: String
-}
-
-input reportWhereInput {
+input ReportScalarWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -1103,36 +2589,6 @@ input reportWhereInput {
   id_lte: Int
   id_gt: Int
   id_gte: Int
-  content: String
-  content_not: String
-  content_in: [String!]
-  content_not_in: [String!]
-  content_lt: String
-  content_lte: String
-  content_gt: String
-  content_gte: String
-  content_contains: String
-  content_not_contains: String
-  content_starts_with: String
-  content_not_starts_with: String
-  content_ends_with: String
-  content_not_ends_with: String
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  deletedAt: DateTime
-  deletedAt_not: DateTime
-  deletedAt_in: [DateTime!]
-  deletedAt_not_in: [DateTime!]
-  deletedAt_lt: DateTime
-  deletedAt_lte: DateTime
-  deletedAt_gt: DateTime
-  deletedAt_gte: DateTime
   title: String
   title_not: String
   title_in: [String!]
@@ -1147,113 +2603,6 @@ input reportWhereInput {
   title_not_starts_with: String
   title_ends_with: String
   title_not_ends_with: String
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  AND: [reportWhereInput!]
-  OR: [reportWhereInput!]
-  NOT: [reportWhereInput!]
-}
-
-input reportWhereUniqueInput {
-  id: Int
-}
-
-type review {
-  id: Int!
-  content: String
-  createdAt: DateTime!
-  deletedAt: DateTime
-  mark: Int
-  updatedAt: DateTime!
-}
-
-type reviewConnection {
-  pageInfo: PageInfo!
-  edges: [reviewEdge]!
-  aggregate: Aggregatereview!
-}
-
-input reviewCreateInput {
-  id: Int
-  content: String
-  deletedAt: DateTime
-  mark: Int
-}
-
-type reviewEdge {
-  node: review!
-  cursor: String!
-}
-
-enum reviewOrderByInput {
-  id_ASC
-  id_DESC
-  content_ASC
-  content_DESC
-  createdAt_ASC
-  createdAt_DESC
-  deletedAt_ASC
-  deletedAt_DESC
-  mark_ASC
-  mark_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type reviewPreviousValues {
-  id: Int!
-  content: String
-  createdAt: DateTime!
-  deletedAt: DateTime
-  mark: Int
-  updatedAt: DateTime!
-}
-
-type reviewSubscriptionPayload {
-  mutation: MutationType!
-  node: review
-  updatedFields: [String!]
-  previousValues: reviewPreviousValues
-}
-
-input reviewSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: reviewWhereInput
-  AND: [reviewSubscriptionWhereInput!]
-  OR: [reviewSubscriptionWhereInput!]
-  NOT: [reviewSubscriptionWhereInput!]
-}
-
-input reviewUpdateInput {
-  content: String
-  deletedAt: DateTime
-  mark: Int
-}
-
-input reviewUpdateManyMutationInput {
-  content: String
-  deletedAt: DateTime
-  mark: Int
-}
-
-input reviewWhereInput {
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
   content: String
   content_not: String
   content_in: [String!]
@@ -1276,22 +2625,6 @@ input reviewWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  deletedAt: DateTime
-  deletedAt_not: DateTime
-  deletedAt_in: [DateTime!]
-  deletedAt_not_in: [DateTime!]
-  deletedAt_lt: DateTime
-  deletedAt_lte: DateTime
-  deletedAt_gt: DateTime
-  deletedAt_gte: DateTime
-  mark: Int
-  mark_not: Int
-  mark_in: [Int!]
-  mark_not_in: [Int!]
-  mark_lt: Int
-  mark_lte: Int
-  mark_gt: Int
-  mark_gte: Int
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -1300,136 +2633,6 @@ input reviewWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  AND: [reviewWhereInput!]
-  OR: [reviewWhereInput!]
-  NOT: [reviewWhereInput!]
-}
-
-input reviewWhereUniqueInput {
-  id: Int
-}
-
-type service {
-  id: Int!
-  active: Boolean!
-  createdAt: DateTime!
-  deletedAt: DateTime
-  duration: Int
-  illustration: String
-  name: String
-  price: Float
-  updatedAt: DateTime!
-}
-
-type serviceConnection {
-  pageInfo: PageInfo!
-  edges: [serviceEdge]!
-  aggregate: Aggregateservice!
-}
-
-input serviceCreateInput {
-  id: Int
-  active: Boolean
-  deletedAt: DateTime
-  duration: Int
-  illustration: String
-  name: String
-  price: Float
-}
-
-type serviceEdge {
-  node: service!
-  cursor: String!
-}
-
-enum serviceOrderByInput {
-  id_ASC
-  id_DESC
-  active_ASC
-  active_DESC
-  createdAt_ASC
-  createdAt_DESC
-  deletedAt_ASC
-  deletedAt_DESC
-  duration_ASC
-  duration_DESC
-  illustration_ASC
-  illustration_DESC
-  name_ASC
-  name_DESC
-  price_ASC
-  price_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type servicePreviousValues {
-  id: Int!
-  active: Boolean!
-  createdAt: DateTime!
-  deletedAt: DateTime
-  duration: Int
-  illustration: String
-  name: String
-  price: Float
-  updatedAt: DateTime!
-}
-
-type serviceSubscriptionPayload {
-  mutation: MutationType!
-  node: service
-  updatedFields: [String!]
-  previousValues: servicePreviousValues
-}
-
-input serviceSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: serviceWhereInput
-  AND: [serviceSubscriptionWhereInput!]
-  OR: [serviceSubscriptionWhereInput!]
-  NOT: [serviceSubscriptionWhereInput!]
-}
-
-input serviceUpdateInput {
-  active: Boolean
-  deletedAt: DateTime
-  duration: Int
-  illustration: String
-  name: String
-  price: Float
-}
-
-input serviceUpdateManyMutationInput {
-  active: Boolean
-  deletedAt: DateTime
-  duration: Int
-  illustration: String
-  name: String
-  price: Float
-}
-
-input serviceWhereInput {
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
-  active: Boolean
-  active_not: Boolean
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
   deletedAt: DateTime
   deletedAt_not: DateTime
   deletedAt_in: [DateTime!]
@@ -1438,28 +2641,594 @@ input serviceWhereInput {
   deletedAt_lte: DateTime
   deletedAt_gt: DateTime
   deletedAt_gte: DateTime
+  AND: [ReportScalarWhereInput!]
+  OR: [ReportScalarWhereInput!]
+  NOT: [ReportScalarWhereInput!]
+}
+
+type ReportSubscriptionPayload {
+  mutation: MutationType!
+  node: Report
+  updatedFields: [String!]
+  previousValues: ReportPreviousValues
+}
+
+input ReportSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ReportWhereInput
+  AND: [ReportSubscriptionWhereInput!]
+  OR: [ReportSubscriptionWhereInput!]
+  NOT: [ReportSubscriptionWhereInput!]
+}
+
+input ReportUpdateInput {
+  author: UserUpdateOneWithoutReportInput
+  establishment: EstablishmentUpdateOneWithoutReportInput
+  title: String
+  content: String
+  deletedAt: DateTime
+}
+
+input ReportUpdateManyDataInput {
+  title: String
+  content: String
+  deletedAt: DateTime
+}
+
+input ReportUpdateManyMutationInput {
+  title: String
+  content: String
+  deletedAt: DateTime
+}
+
+input ReportUpdateManyWithoutAuthorInput {
+  create: [ReportCreateWithoutAuthorInput!]
+  delete: [ReportWhereUniqueInput!]
+  connect: [ReportWhereUniqueInput!]
+  set: [ReportWhereUniqueInput!]
+  disconnect: [ReportWhereUniqueInput!]
+  update: [ReportUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [ReportUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [ReportScalarWhereInput!]
+  updateMany: [ReportUpdateManyWithWhereNestedInput!]
+}
+
+input ReportUpdateManyWithoutEstablishmentInput {
+  create: [ReportCreateWithoutEstablishmentInput!]
+  delete: [ReportWhereUniqueInput!]
+  connect: [ReportWhereUniqueInput!]
+  set: [ReportWhereUniqueInput!]
+  disconnect: [ReportWhereUniqueInput!]
+  update: [ReportUpdateWithWhereUniqueWithoutEstablishmentInput!]
+  upsert: [ReportUpsertWithWhereUniqueWithoutEstablishmentInput!]
+  deleteMany: [ReportScalarWhereInput!]
+  updateMany: [ReportUpdateManyWithWhereNestedInput!]
+}
+
+input ReportUpdateManyWithWhereNestedInput {
+  where: ReportScalarWhereInput!
+  data: ReportUpdateManyDataInput!
+}
+
+input ReportUpdateWithoutAuthorDataInput {
+  establishment: EstablishmentUpdateOneWithoutReportInput
+  title: String
+  content: String
+  deletedAt: DateTime
+}
+
+input ReportUpdateWithoutEstablishmentDataInput {
+  author: UserUpdateOneWithoutReportInput
+  title: String
+  content: String
+  deletedAt: DateTime
+}
+
+input ReportUpdateWithWhereUniqueWithoutAuthorInput {
+  where: ReportWhereUniqueInput!
+  data: ReportUpdateWithoutAuthorDataInput!
+}
+
+input ReportUpdateWithWhereUniqueWithoutEstablishmentInput {
+  where: ReportWhereUniqueInput!
+  data: ReportUpdateWithoutEstablishmentDataInput!
+}
+
+input ReportUpsertWithWhereUniqueWithoutAuthorInput {
+  where: ReportWhereUniqueInput!
+  update: ReportUpdateWithoutAuthorDataInput!
+  create: ReportCreateWithoutAuthorInput!
+}
+
+input ReportUpsertWithWhereUniqueWithoutEstablishmentInput {
+  where: ReportWhereUniqueInput!
+  update: ReportUpdateWithoutEstablishmentDataInput!
+  create: ReportCreateWithoutEstablishmentInput!
+}
+
+input ReportWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  author: UserWhereInput
+  establishment: EstablishmentWhereInput
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  AND: [ReportWhereInput!]
+  OR: [ReportWhereInput!]
+  NOT: [ReportWhereInput!]
+}
+
+input ReportWhereUniqueInput {
+  id: Int
+}
+
+type Review {
+  id: Int!
+  author: User
+  establishment: Establishment
+  mark: Int
+  content: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+type ReviewConnection {
+  pageInfo: PageInfo!
+  edges: [ReviewEdge]!
+  aggregate: AggregateReview!
+}
+
+input ReviewCreateInput {
+  id: Int
+  author: UserCreateOneWithoutReviewInput
+  establishment: EstablishmentCreateOneWithoutReviewInput
+  mark: Int
+  content: String
+  deletedAt: DateTime
+}
+
+input ReviewCreateManyWithoutAuthorInput {
+  create: [ReviewCreateWithoutAuthorInput!]
+  connect: [ReviewWhereUniqueInput!]
+}
+
+input ReviewCreateManyWithoutEstablishmentInput {
+  create: [ReviewCreateWithoutEstablishmentInput!]
+  connect: [ReviewWhereUniqueInput!]
+}
+
+input ReviewCreateWithoutAuthorInput {
+  id: Int
+  establishment: EstablishmentCreateOneWithoutReviewInput
+  mark: Int
+  content: String
+  deletedAt: DateTime
+}
+
+input ReviewCreateWithoutEstablishmentInput {
+  id: Int
+  author: UserCreateOneWithoutReviewInput
+  mark: Int
+  content: String
+  deletedAt: DateTime
+}
+
+type ReviewEdge {
+  node: Review!
+  cursor: String!
+}
+
+enum ReviewOrderByInput {
+  id_ASC
+  id_DESC
+  mark_ASC
+  mark_DESC
+  content_ASC
+  content_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+}
+
+type ReviewPreviousValues {
+  id: Int!
+  mark: Int
+  content: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+input ReviewScalarWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  mark: Int
+  mark_not: Int
+  mark_in: [Int!]
+  mark_not_in: [Int!]
+  mark_lt: Int
+  mark_lte: Int
+  mark_gt: Int
+  mark_gte: Int
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  AND: [ReviewScalarWhereInput!]
+  OR: [ReviewScalarWhereInput!]
+  NOT: [ReviewScalarWhereInput!]
+}
+
+type ReviewSubscriptionPayload {
+  mutation: MutationType!
+  node: Review
+  updatedFields: [String!]
+  previousValues: ReviewPreviousValues
+}
+
+input ReviewSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ReviewWhereInput
+  AND: [ReviewSubscriptionWhereInput!]
+  OR: [ReviewSubscriptionWhereInput!]
+  NOT: [ReviewSubscriptionWhereInput!]
+}
+
+input ReviewUpdateInput {
+  author: UserUpdateOneWithoutReviewInput
+  establishment: EstablishmentUpdateOneWithoutReviewInput
+  mark: Int
+  content: String
+  deletedAt: DateTime
+}
+
+input ReviewUpdateManyDataInput {
+  mark: Int
+  content: String
+  deletedAt: DateTime
+}
+
+input ReviewUpdateManyMutationInput {
+  mark: Int
+  content: String
+  deletedAt: DateTime
+}
+
+input ReviewUpdateManyWithoutAuthorInput {
+  create: [ReviewCreateWithoutAuthorInput!]
+  delete: [ReviewWhereUniqueInput!]
+  connect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  update: [ReviewUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [ReviewUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [ReviewScalarWhereInput!]
+  updateMany: [ReviewUpdateManyWithWhereNestedInput!]
+}
+
+input ReviewUpdateManyWithoutEstablishmentInput {
+  create: [ReviewCreateWithoutEstablishmentInput!]
+  delete: [ReviewWhereUniqueInput!]
+  connect: [ReviewWhereUniqueInput!]
+  set: [ReviewWhereUniqueInput!]
+  disconnect: [ReviewWhereUniqueInput!]
+  update: [ReviewUpdateWithWhereUniqueWithoutEstablishmentInput!]
+  upsert: [ReviewUpsertWithWhereUniqueWithoutEstablishmentInput!]
+  deleteMany: [ReviewScalarWhereInput!]
+  updateMany: [ReviewUpdateManyWithWhereNestedInput!]
+}
+
+input ReviewUpdateManyWithWhereNestedInput {
+  where: ReviewScalarWhereInput!
+  data: ReviewUpdateManyDataInput!
+}
+
+input ReviewUpdateWithoutAuthorDataInput {
+  establishment: EstablishmentUpdateOneWithoutReviewInput
+  mark: Int
+  content: String
+  deletedAt: DateTime
+}
+
+input ReviewUpdateWithoutEstablishmentDataInput {
+  author: UserUpdateOneWithoutReviewInput
+  mark: Int
+  content: String
+  deletedAt: DateTime
+}
+
+input ReviewUpdateWithWhereUniqueWithoutAuthorInput {
+  where: ReviewWhereUniqueInput!
+  data: ReviewUpdateWithoutAuthorDataInput!
+}
+
+input ReviewUpdateWithWhereUniqueWithoutEstablishmentInput {
+  where: ReviewWhereUniqueInput!
+  data: ReviewUpdateWithoutEstablishmentDataInput!
+}
+
+input ReviewUpsertWithWhereUniqueWithoutAuthorInput {
+  where: ReviewWhereUniqueInput!
+  update: ReviewUpdateWithoutAuthorDataInput!
+  create: ReviewCreateWithoutAuthorInput!
+}
+
+input ReviewUpsertWithWhereUniqueWithoutEstablishmentInput {
+  where: ReviewWhereUniqueInput!
+  update: ReviewUpdateWithoutEstablishmentDataInput!
+  create: ReviewCreateWithoutEstablishmentInput!
+}
+
+input ReviewWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  author: UserWhereInput
+  establishment: EstablishmentWhereInput
+  mark: Int
+  mark_not: Int
+  mark_in: [Int!]
+  mark_not_in: [Int!]
+  mark_lt: Int
+  mark_lte: Int
+  mark_gt: Int
+  mark_gte: Int
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  AND: [ReviewWhereInput!]
+  OR: [ReviewWhereInput!]
+  NOT: [ReviewWhereInput!]
+}
+
+input ReviewWhereUniqueInput {
+  id: Int
+}
+
+type Service {
+  id: Int!
+  establishment: Establishment
+  createdBy: User
+  updatedBy: User
+  name: String
+  price: Float
   duration: Int
-  duration_not: Int
-  duration_in: [Int!]
-  duration_not_in: [Int!]
-  duration_lt: Int
-  duration_lte: Int
-  duration_gt: Int
-  duration_gte: Int
   illustration: String
-  illustration_not: String
-  illustration_in: [String!]
-  illustration_not_in: [String!]
-  illustration_lt: String
-  illustration_lte: String
-  illustration_gt: String
-  illustration_gte: String
-  illustration_contains: String
-  illustration_not_contains: String
-  illustration_starts_with: String
-  illustration_not_starts_with: String
-  illustration_ends_with: String
-  illustration_not_ends_with: String
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+type ServiceConnection {
+  pageInfo: PageInfo!
+  edges: [ServiceEdge]!
+  aggregate: AggregateService!
+}
+
+input ServiceCreateInput {
+  id: Int
+  establishment: EstablishmentCreateOneWithoutServiceInput
+  createdBy: UserCreateOneInput
+  updatedBy: UserCreateOneInput
+  name: String
+  price: Float
+  duration: Int
+  illustration: String
+  active: Boolean
+  deletedAt: DateTime
+}
+
+input ServiceCreateManyWithoutEstablishmentInput {
+  create: [ServiceCreateWithoutEstablishmentInput!]
+  connect: [ServiceWhereUniqueInput!]
+}
+
+input ServiceCreateWithoutEstablishmentInput {
+  id: Int
+  createdBy: UserCreateOneInput
+  updatedBy: UserCreateOneInput
+  name: String
+  price: Float
+  duration: Int
+  illustration: String
+  active: Boolean
+  deletedAt: DateTime
+}
+
+type ServiceEdge {
+  node: Service!
+  cursor: String!
+}
+
+enum ServiceOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  price_ASC
+  price_DESC
+  duration_ASC
+  duration_DESC
+  illustration_ASC
+  illustration_DESC
+  active_ASC
+  active_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  deletedAt_ASC
+  deletedAt_DESC
+}
+
+type ServicePreviousValues {
+  id: Int!
+  name: String
+  price: Float
+  duration: Int
+  illustration: String
+  active: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+input ServiceScalarWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
   name: String
   name_not: String
   name_in: [String!]
@@ -1482,6 +3251,38 @@ input serviceWhereInput {
   price_lte: Float
   price_gt: Float
   price_gte: Float
+  duration: Int
+  duration_not: Int
+  duration_in: [Int!]
+  duration_not_in: [Int!]
+  duration_lt: Int
+  duration_lte: Int
+  duration_gt: Int
+  duration_gte: Int
+  illustration: String
+  illustration_not: String
+  illustration_in: [String!]
+  illustration_not_in: [String!]
+  illustration_lt: String
+  illustration_lte: String
+  illustration_gt: String
+  illustration_gte: String
+  illustration_contains: String
+  illustration_not_contains: String
+  illustration_starts_with: String
+  illustration_not_starts_with: String
+  illustration_ends_with: String
+  illustration_not_ends_with: String
+  active: Boolean
+  active_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -1490,89 +3291,303 @@ input serviceWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  AND: [serviceWhereInput!]
-  OR: [serviceWhereInput!]
-  NOT: [serviceWhereInput!]
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  AND: [ServiceScalarWhereInput!]
+  OR: [ServiceScalarWhereInput!]
+  NOT: [ServiceScalarWhereInput!]
 }
 
-input serviceWhereUniqueInput {
+type ServiceSubscriptionPayload {
+  mutation: MutationType!
+  node: Service
+  updatedFields: [String!]
+  previousValues: ServicePreviousValues
+}
+
+input ServiceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ServiceWhereInput
+  AND: [ServiceSubscriptionWhereInput!]
+  OR: [ServiceSubscriptionWhereInput!]
+  NOT: [ServiceSubscriptionWhereInput!]
+}
+
+input ServiceUpdateInput {
+  establishment: EstablishmentUpdateOneWithoutServiceInput
+  createdBy: UserUpdateOneInput
+  updatedBy: UserUpdateOneInput
+  name: String
+  price: Float
+  duration: Int
+  illustration: String
+  active: Boolean
+  deletedAt: DateTime
+}
+
+input ServiceUpdateManyDataInput {
+  name: String
+  price: Float
+  duration: Int
+  illustration: String
+  active: Boolean
+  deletedAt: DateTime
+}
+
+input ServiceUpdateManyMutationInput {
+  name: String
+  price: Float
+  duration: Int
+  illustration: String
+  active: Boolean
+  deletedAt: DateTime
+}
+
+input ServiceUpdateManyWithoutEstablishmentInput {
+  create: [ServiceCreateWithoutEstablishmentInput!]
+  delete: [ServiceWhereUniqueInput!]
+  connect: [ServiceWhereUniqueInput!]
+  set: [ServiceWhereUniqueInput!]
+  disconnect: [ServiceWhereUniqueInput!]
+  update: [ServiceUpdateWithWhereUniqueWithoutEstablishmentInput!]
+  upsert: [ServiceUpsertWithWhereUniqueWithoutEstablishmentInput!]
+  deleteMany: [ServiceScalarWhereInput!]
+  updateMany: [ServiceUpdateManyWithWhereNestedInput!]
+}
+
+input ServiceUpdateManyWithWhereNestedInput {
+  where: ServiceScalarWhereInput!
+  data: ServiceUpdateManyDataInput!
+}
+
+input ServiceUpdateWithoutEstablishmentDataInput {
+  createdBy: UserUpdateOneInput
+  updatedBy: UserUpdateOneInput
+  name: String
+  price: Float
+  duration: Int
+  illustration: String
+  active: Boolean
+  deletedAt: DateTime
+}
+
+input ServiceUpdateWithWhereUniqueWithoutEstablishmentInput {
+  where: ServiceWhereUniqueInput!
+  data: ServiceUpdateWithoutEstablishmentDataInput!
+}
+
+input ServiceUpsertWithWhereUniqueWithoutEstablishmentInput {
+  where: ServiceWhereUniqueInput!
+  update: ServiceUpdateWithoutEstablishmentDataInput!
+  create: ServiceCreateWithoutEstablishmentInput!
+}
+
+input ServiceWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  establishment: EstablishmentWhereInput
+  createdBy: UserWhereInput
+  updatedBy: UserWhereInput
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  price: Float
+  price_not: Float
+  price_in: [Float!]
+  price_not_in: [Float!]
+  price_lt: Float
+  price_lte: Float
+  price_gt: Float
+  price_gte: Float
+  duration: Int
+  duration_not: Int
+  duration_in: [Int!]
+  duration_not_in: [Int!]
+  duration_lt: Int
+  duration_lte: Int
+  duration_gt: Int
+  duration_gte: Int
+  illustration: String
+  illustration_not: String
+  illustration_in: [String!]
+  illustration_not_in: [String!]
+  illustration_lt: String
+  illustration_lte: String
+  illustration_gt: String
+  illustration_gte: String
+  illustration_contains: String
+  illustration_not_contains: String
+  illustration_starts_with: String
+  illustration_not_starts_with: String
+  illustration_ends_with: String
+  illustration_not_ends_with: String
+  active: Boolean
+  active_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  AND: [ServiceWhereInput!]
+  OR: [ServiceWhereInput!]
+  NOT: [ServiceWhereInput!]
+}
+
+input ServiceWhereUniqueInput {
   id: Int
 }
 
 type Subscription {
-  appointment(where: appointmentSubscriptionWhereInput): appointmentSubscriptionPayload
-  day(where: daySubscriptionWhereInput): daySubscriptionPayload
-  department(where: departmentSubscriptionWhereInput): departmentSubscriptionPayload
-  establishment(where: establishmentSubscriptionWhereInput): establishmentSubscriptionPayload
-  hour(where: hourSubscriptionWhereInput): hourSubscriptionPayload
-  report(where: reportSubscriptionWhereInput): reportSubscriptionPayload
-  review(where: reviewSubscriptionWhereInput): reviewSubscriptionPayload
-  service(where: serviceSubscriptionWhereInput): serviceSubscriptionPayload
-  typeofshift(where: typeofshiftSubscriptionWhereInput): typeofshiftSubscriptionPayload
-  user(where: userSubscriptionWhereInput): userSubscriptionPayload
-  userestablishment(where: userestablishmentSubscriptionWhereInput): userestablishmentSubscriptionPayload
+  appointment(where: AppointmentSubscriptionWhereInput): AppointmentSubscriptionPayload
+  appointmentStatus(where: AppointmentStatusSubscriptionWhereInput): AppointmentStatusSubscriptionPayload
+  day(where: DaySubscriptionWhereInput): DaySubscriptionPayload
+  department(where: DepartmentSubscriptionWhereInput): DepartmentSubscriptionPayload
+  establishment(where: EstablishmentSubscriptionWhereInput): EstablishmentSubscriptionPayload
+  hour(where: HourSubscriptionWhereInput): HourSubscriptionPayload
+  report(where: ReportSubscriptionWhereInput): ReportSubscriptionPayload
+  review(where: ReviewSubscriptionWhereInput): ReviewSubscriptionPayload
+  service(where: ServiceSubscriptionWhereInput): ServiceSubscriptionPayload
+  typeOfShift(where: TypeOfShiftSubscriptionWhereInput): TypeOfShiftSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  userEstablishment(where: UserEstablishmentSubscriptionWhereInput): UserEstablishmentSubscriptionPayload
 }
 
-type typeofshift {
+type TypeOfShift {
   id: Int!
   name: String
+  hours(where: HourWhereInput, orderBy: HourOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hour!]
 }
 
-type typeofshiftConnection {
+type TypeOfShiftConnection {
   pageInfo: PageInfo!
-  edges: [typeofshiftEdge]!
-  aggregate: Aggregatetypeofshift!
+  edges: [TypeOfShiftEdge]!
+  aggregate: AggregateTypeOfShift!
 }
 
-input typeofshiftCreateInput {
+input TypeOfShiftCreateInput {
+  id: Int
+  name: String
+  hours: HourCreateManyWithoutTypeOfShiftInput
+}
+
+input TypeOfShiftCreateOneWithoutHoursInput {
+  create: TypeOfShiftCreateWithoutHoursInput
+  connect: TypeOfShiftWhereUniqueInput
+}
+
+input TypeOfShiftCreateWithoutHoursInput {
   id: Int
   name: String
 }
 
-type typeofshiftEdge {
-  node: typeofshift!
+type TypeOfShiftEdge {
+  node: TypeOfShift!
   cursor: String!
 }
 
-enum typeofshiftOrderByInput {
+enum TypeOfShiftOrderByInput {
   id_ASC
   id_DESC
   name_ASC
   name_DESC
 }
 
-type typeofshiftPreviousValues {
+type TypeOfShiftPreviousValues {
   id: Int!
   name: String
 }
 
-type typeofshiftSubscriptionPayload {
+type TypeOfShiftSubscriptionPayload {
   mutation: MutationType!
-  node: typeofshift
+  node: TypeOfShift
   updatedFields: [String!]
-  previousValues: typeofshiftPreviousValues
+  previousValues: TypeOfShiftPreviousValues
 }
 
-input typeofshiftSubscriptionWhereInput {
+input TypeOfShiftSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: typeofshiftWhereInput
-  AND: [typeofshiftSubscriptionWhereInput!]
-  OR: [typeofshiftSubscriptionWhereInput!]
-  NOT: [typeofshiftSubscriptionWhereInput!]
+  node: TypeOfShiftWhereInput
+  AND: [TypeOfShiftSubscriptionWhereInput!]
+  OR: [TypeOfShiftSubscriptionWhereInput!]
+  NOT: [TypeOfShiftSubscriptionWhereInput!]
 }
 
-input typeofshiftUpdateInput {
+input TypeOfShiftUpdateInput {
+  name: String
+  hours: HourUpdateManyWithoutTypeOfShiftInput
+}
+
+input TypeOfShiftUpdateManyMutationInput {
   name: String
 }
 
-input typeofshiftUpdateManyMutationInput {
+input TypeOfShiftUpdateOneWithoutHoursInput {
+  create: TypeOfShiftCreateWithoutHoursInput
+  update: TypeOfShiftUpdateWithoutHoursDataInput
+  upsert: TypeOfShiftUpsertWithoutHoursInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: TypeOfShiftWhereUniqueInput
+}
+
+input TypeOfShiftUpdateWithoutHoursDataInput {
   name: String
 }
 
-input typeofshiftWhereInput {
+input TypeOfShiftUpsertWithoutHoursInput {
+  update: TypeOfShiftUpdateWithoutHoursDataInput!
+  create: TypeOfShiftCreateWithoutHoursInput!
+}
+
+input TypeOfShiftWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -1595,123 +3610,287 @@ input typeofshiftWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  AND: [typeofshiftWhereInput!]
-  OR: [typeofshiftWhereInput!]
-  NOT: [typeofshiftWhereInput!]
+  hours_every: HourWhereInput
+  hours_some: HourWhereInput
+  hours_none: HourWhereInput
+  AND: [TypeOfShiftWhereInput!]
+  OR: [TypeOfShiftWhereInput!]
+  NOT: [TypeOfShiftWhereInput!]
 }
 
-input typeofshiftWhereUniqueInput {
+input TypeOfShiftWhereUniqueInput {
   id: Int
 }
 
-type user {
+type User {
   id: Int!
   active: Boolean!
+  appointment(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
   birthdate: DateTime
   createdAt: DateTime!
   deletedAt: DateTime
+  department: Department
   email: String!
+  establishment(where: EstablishmentWhereInput, orderBy: EstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Establishment!]
   firstname: String
   gender: String
   lastname: String
   password: String!
   phoneNumber: String
+  report(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Report!]
+  review(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
   roles: Json!
   updatedAt: DateTime!
+  userEstablishment(where: UserEstablishmentWhereInput, orderBy: UserEstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserEstablishment!]
 }
 
-type userConnection {
+type UserConnection {
   pageInfo: PageInfo!
-  edges: [userEdge]!
-  aggregate: Aggregateuser!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
 }
 
-input userCreateInput {
+input UserCreateInput {
+  id: Int
+  active: Boolean
+  appointment: AppointmentCreateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutUserInput
+  email: String!
+  establishment: EstablishmentCreateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String!
+  phoneNumber: String
+  report: ReportCreateManyWithoutAuthorInput
+  review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
+  userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
+}
+
+input UserCreateManyWithoutDepartmentInput {
+  create: [UserCreateWithoutDepartmentInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutAppointmentInput {
+  create: UserCreateWithoutAppointmentInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutEstablishmentInput {
+  create: UserCreateWithoutEstablishmentInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutReportInput {
+  create: UserCreateWithoutReportInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutReviewInput {
+  create: UserCreateWithoutReviewInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutUserEstablishmentInput {
+  create: UserCreateWithoutUserEstablishmentInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutAppointmentInput {
   id: Int
   active: Boolean
   birthdate: DateTime
   deletedAt: DateTime
+  department: DepartmentCreateOneWithoutUserInput
+  email: String!
+  establishment: EstablishmentCreateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String!
+  phoneNumber: String
+  report: ReportCreateManyWithoutAuthorInput
+  review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
+  userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
+}
+
+input UserCreateWithoutDepartmentInput {
+  id: Int
+  active: Boolean
+  appointment: AppointmentCreateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  email: String!
+  establishment: EstablishmentCreateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String!
+  phoneNumber: String
+  report: ReportCreateManyWithoutAuthorInput
+  review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
+  userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
+}
+
+input UserCreateWithoutEstablishmentInput {
+  id: Int
+  active: Boolean
+  appointment: AppointmentCreateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutUserInput
   email: String!
   firstname: String
   gender: String
   lastname: String
   password: String!
   phoneNumber: String
+  report: ReportCreateManyWithoutAuthorInput
+  review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
+  userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
+}
+
+input UserCreateWithoutReportInput {
+  id: Int
+  active: Boolean
+  appointment: AppointmentCreateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutUserInput
+  email: String!
+  establishment: EstablishmentCreateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String!
+  phoneNumber: String
+  review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
+  userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
+}
+
+input UserCreateWithoutReviewInput {
+  id: Int
+  active: Boolean
+  appointment: AppointmentCreateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutUserInput
+  email: String!
+  establishment: EstablishmentCreateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String!
+  phoneNumber: String
+  report: ReportCreateManyWithoutAuthorInput
+  roles: Json!
+  userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
+}
+
+input UserCreateWithoutUserEstablishmentInput {
+  id: Int
+  active: Boolean
+  appointment: AppointmentCreateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentCreateOneWithoutUserInput
+  email: String!
+  establishment: EstablishmentCreateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String!
+  phoneNumber: String
+  report: ReportCreateManyWithoutAuthorInput
+  review: ReviewCreateManyWithoutAuthorInput
   roles: Json!
 }
 
-type userEdge {
-  node: user!
+type UserEdge {
+  node: User!
   cursor: String!
 }
 
-type userestablishment {
+type UserEstablishment {
   id: Int!
-  deletedAt: DateTime
+  manager: User
+  establishment: Establishment
   validated: Boolean
+  deletedAt: DateTime
 }
 
-type userestablishmentConnection {
+type UserEstablishmentConnection {
   pageInfo: PageInfo!
-  edges: [userestablishmentEdge]!
-  aggregate: Aggregateuserestablishment!
+  edges: [UserEstablishmentEdge]!
+  aggregate: AggregateUserEstablishment!
 }
 
-input userestablishmentCreateInput {
+input UserEstablishmentCreateInput {
   id: Int
-  deletedAt: DateTime
+  manager: UserCreateOneWithoutUserEstablishmentInput
+  establishment: EstablishmentCreateOneWithoutUserEstablishmentInput
   validated: Boolean
+  deletedAt: DateTime
 }
 
-type userestablishmentEdge {
-  node: userestablishment!
+input UserEstablishmentCreateManyWithoutEstablishmentInput {
+  create: [UserEstablishmentCreateWithoutEstablishmentInput!]
+  connect: [UserEstablishmentWhereUniqueInput!]
+}
+
+input UserEstablishmentCreateManyWithoutManagerInput {
+  create: [UserEstablishmentCreateWithoutManagerInput!]
+  connect: [UserEstablishmentWhereUniqueInput!]
+}
+
+input UserEstablishmentCreateWithoutEstablishmentInput {
+  id: Int
+  manager: UserCreateOneWithoutUserEstablishmentInput
+  validated: Boolean
+  deletedAt: DateTime
+}
+
+input UserEstablishmentCreateWithoutManagerInput {
+  id: Int
+  establishment: EstablishmentCreateOneWithoutUserEstablishmentInput
+  validated: Boolean
+  deletedAt: DateTime
+}
+
+type UserEstablishmentEdge {
+  node: UserEstablishment!
   cursor: String!
 }
 
-enum userestablishmentOrderByInput {
+enum UserEstablishmentOrderByInput {
   id_ASC
   id_DESC
-  deletedAt_ASC
-  deletedAt_DESC
   validated_ASC
   validated_DESC
+  deletedAt_ASC
+  deletedAt_DESC
 }
 
-type userestablishmentPreviousValues {
+type UserEstablishmentPreviousValues {
   id: Int!
-  deletedAt: DateTime
   validated: Boolean
-}
-
-type userestablishmentSubscriptionPayload {
-  mutation: MutationType!
-  node: userestablishment
-  updatedFields: [String!]
-  previousValues: userestablishmentPreviousValues
-}
-
-input userestablishmentSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: userestablishmentWhereInput
-  AND: [userestablishmentSubscriptionWhereInput!]
-  OR: [userestablishmentSubscriptionWhereInput!]
-  NOT: [userestablishmentSubscriptionWhereInput!]
-}
-
-input userestablishmentUpdateInput {
   deletedAt: DateTime
-  validated: Boolean
 }
 
-input userestablishmentUpdateManyMutationInput {
-  deletedAt: DateTime
-  validated: Boolean
-}
-
-input userestablishmentWhereInput {
+input UserEstablishmentScalarWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -1720,6 +3899,8 @@ input userestablishmentWhereInput {
   id_lte: Int
   id_gt: Int
   id_gte: Int
+  validated: Boolean
+  validated_not: Boolean
   deletedAt: DateTime
   deletedAt_not: DateTime
   deletedAt_in: [DateTime!]
@@ -1728,18 +3909,140 @@ input userestablishmentWhereInput {
   deletedAt_lte: DateTime
   deletedAt_gt: DateTime
   deletedAt_gte: DateTime
-  validated: Boolean
-  validated_not: Boolean
-  AND: [userestablishmentWhereInput!]
-  OR: [userestablishmentWhereInput!]
-  NOT: [userestablishmentWhereInput!]
+  AND: [UserEstablishmentScalarWhereInput!]
+  OR: [UserEstablishmentScalarWhereInput!]
+  NOT: [UserEstablishmentScalarWhereInput!]
 }
 
-input userestablishmentWhereUniqueInput {
+type UserEstablishmentSubscriptionPayload {
+  mutation: MutationType!
+  node: UserEstablishment
+  updatedFields: [String!]
+  previousValues: UserEstablishmentPreviousValues
+}
+
+input UserEstablishmentSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserEstablishmentWhereInput
+  AND: [UserEstablishmentSubscriptionWhereInput!]
+  OR: [UserEstablishmentSubscriptionWhereInput!]
+  NOT: [UserEstablishmentSubscriptionWhereInput!]
+}
+
+input UserEstablishmentUpdateInput {
+  manager: UserUpdateOneWithoutUserEstablishmentInput
+  establishment: EstablishmentUpdateOneWithoutUserEstablishmentInput
+  validated: Boolean
+  deletedAt: DateTime
+}
+
+input UserEstablishmentUpdateManyDataInput {
+  validated: Boolean
+  deletedAt: DateTime
+}
+
+input UserEstablishmentUpdateManyMutationInput {
+  validated: Boolean
+  deletedAt: DateTime
+}
+
+input UserEstablishmentUpdateManyWithoutEstablishmentInput {
+  create: [UserEstablishmentCreateWithoutEstablishmentInput!]
+  delete: [UserEstablishmentWhereUniqueInput!]
+  connect: [UserEstablishmentWhereUniqueInput!]
+  set: [UserEstablishmentWhereUniqueInput!]
+  disconnect: [UserEstablishmentWhereUniqueInput!]
+  update: [UserEstablishmentUpdateWithWhereUniqueWithoutEstablishmentInput!]
+  upsert: [UserEstablishmentUpsertWithWhereUniqueWithoutEstablishmentInput!]
+  deleteMany: [UserEstablishmentScalarWhereInput!]
+  updateMany: [UserEstablishmentUpdateManyWithWhereNestedInput!]
+}
+
+input UserEstablishmentUpdateManyWithoutManagerInput {
+  create: [UserEstablishmentCreateWithoutManagerInput!]
+  delete: [UserEstablishmentWhereUniqueInput!]
+  connect: [UserEstablishmentWhereUniqueInput!]
+  set: [UserEstablishmentWhereUniqueInput!]
+  disconnect: [UserEstablishmentWhereUniqueInput!]
+  update: [UserEstablishmentUpdateWithWhereUniqueWithoutManagerInput!]
+  upsert: [UserEstablishmentUpsertWithWhereUniqueWithoutManagerInput!]
+  deleteMany: [UserEstablishmentScalarWhereInput!]
+  updateMany: [UserEstablishmentUpdateManyWithWhereNestedInput!]
+}
+
+input UserEstablishmentUpdateManyWithWhereNestedInput {
+  where: UserEstablishmentScalarWhereInput!
+  data: UserEstablishmentUpdateManyDataInput!
+}
+
+input UserEstablishmentUpdateWithoutEstablishmentDataInput {
+  manager: UserUpdateOneWithoutUserEstablishmentInput
+  validated: Boolean
+  deletedAt: DateTime
+}
+
+input UserEstablishmentUpdateWithoutManagerDataInput {
+  establishment: EstablishmentUpdateOneWithoutUserEstablishmentInput
+  validated: Boolean
+  deletedAt: DateTime
+}
+
+input UserEstablishmentUpdateWithWhereUniqueWithoutEstablishmentInput {
+  where: UserEstablishmentWhereUniqueInput!
+  data: UserEstablishmentUpdateWithoutEstablishmentDataInput!
+}
+
+input UserEstablishmentUpdateWithWhereUniqueWithoutManagerInput {
+  where: UserEstablishmentWhereUniqueInput!
+  data: UserEstablishmentUpdateWithoutManagerDataInput!
+}
+
+input UserEstablishmentUpsertWithWhereUniqueWithoutEstablishmentInput {
+  where: UserEstablishmentWhereUniqueInput!
+  update: UserEstablishmentUpdateWithoutEstablishmentDataInput!
+  create: UserEstablishmentCreateWithoutEstablishmentInput!
+}
+
+input UserEstablishmentUpsertWithWhereUniqueWithoutManagerInput {
+  where: UserEstablishmentWhereUniqueInput!
+  update: UserEstablishmentUpdateWithoutManagerDataInput!
+  create: UserEstablishmentCreateWithoutManagerInput!
+}
+
+input UserEstablishmentWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  manager: UserWhereInput
+  establishment: EstablishmentWhereInput
+  validated: Boolean
+  validated_not: Boolean
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  AND: [UserEstablishmentWhereInput!]
+  OR: [UserEstablishmentWhereInput!]
+  NOT: [UserEstablishmentWhereInput!]
+}
+
+input UserEstablishmentWhereUniqueInput {
   id: Int
 }
 
-enum userOrderByInput {
+enum UserOrderByInput {
   id_ASC
   id_DESC
   active_ASC
@@ -1768,7 +4071,7 @@ enum userOrderByInput {
   updatedAt_DESC
 }
 
-type userPreviousValues {
+type UserPreviousValues {
   id: Int!
   active: Boolean!
   birthdate: DateTime
@@ -1784,51 +4087,7 @@ type userPreviousValues {
   updatedAt: DateTime!
 }
 
-type userSubscriptionPayload {
-  mutation: MutationType!
-  node: user
-  updatedFields: [String!]
-  previousValues: userPreviousValues
-}
-
-input userSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: userWhereInput
-  AND: [userSubscriptionWhereInput!]
-  OR: [userSubscriptionWhereInput!]
-  NOT: [userSubscriptionWhereInput!]
-}
-
-input userUpdateInput {
-  active: Boolean
-  birthdate: DateTime
-  deletedAt: DateTime
-  email: String
-  firstname: String
-  gender: String
-  lastname: String
-  password: String
-  phoneNumber: String
-  roles: Json
-}
-
-input userUpdateManyMutationInput {
-  active: Boolean
-  birthdate: DateTime
-  deletedAt: DateTime
-  email: String
-  firstname: String
-  gender: String
-  lastname: String
-  password: String
-  phoneNumber: String
-  roles: Json
-}
-
-input userWhereInput {
+input UserScalarWhereInput {
   id: Int
   id_not: Int
   id_in: [Int!]
@@ -1955,12 +4214,462 @@ input userWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  AND: [userWhereInput!]
-  OR: [userWhereInput!]
-  NOT: [userWhereInput!]
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
 }
 
-input userWhereUniqueInput {
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
+}
+
+input UserUpdateDataInput {
+  active: Boolean
+  appointment: AppointmentUpdateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneWithoutUserInput
+  email: String
+  establishment: EstablishmentUpdateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  report: ReportUpdateManyWithoutAuthorInput
+  review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
+  userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
+}
+
+input UserUpdateInput {
+  active: Boolean
+  appointment: AppointmentUpdateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneWithoutUserInput
+  email: String
+  establishment: EstablishmentUpdateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  report: ReportUpdateManyWithoutAuthorInput
+  review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
+  userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
+}
+
+input UserUpdateManyDataInput {
+  active: Boolean
+  birthdate: DateTime
+  deletedAt: DateTime
+  email: String
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  roles: Json
+}
+
+input UserUpdateManyMutationInput {
+  active: Boolean
+  birthdate: DateTime
+  deletedAt: DateTime
+  email: String
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  roles: Json
+}
+
+input UserUpdateManyWithoutDepartmentInput {
+  create: [UserCreateWithoutDepartmentInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutDepartmentInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutDepartmentInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneWithoutAppointmentInput {
+  create: UserCreateWithoutAppointmentInput
+  update: UserUpdateWithoutAppointmentDataInput
+  upsert: UserUpsertWithoutAppointmentInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneWithoutEstablishmentInput {
+  create: UserCreateWithoutEstablishmentInput
+  update: UserUpdateWithoutEstablishmentDataInput
+  upsert: UserUpsertWithoutEstablishmentInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneWithoutReportInput {
+  create: UserCreateWithoutReportInput
+  update: UserUpdateWithoutReportDataInput
+  upsert: UserUpsertWithoutReportInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneWithoutReviewInput {
+  create: UserCreateWithoutReviewInput
+  update: UserUpdateWithoutReviewDataInput
+  upsert: UserUpsertWithoutReviewInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneWithoutUserEstablishmentInput {
+  create: UserCreateWithoutUserEstablishmentInput
+  update: UserUpdateWithoutUserEstablishmentDataInput
+  upsert: UserUpsertWithoutUserEstablishmentInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutAppointmentDataInput {
+  active: Boolean
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneWithoutUserInput
+  email: String
+  establishment: EstablishmentUpdateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  report: ReportUpdateManyWithoutAuthorInput
+  review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
+  userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
+}
+
+input UserUpdateWithoutDepartmentDataInput {
+  active: Boolean
+  appointment: AppointmentUpdateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  email: String
+  establishment: EstablishmentUpdateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  report: ReportUpdateManyWithoutAuthorInput
+  review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
+  userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
+}
+
+input UserUpdateWithoutEstablishmentDataInput {
+  active: Boolean
+  appointment: AppointmentUpdateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneWithoutUserInput
+  email: String
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  report: ReportUpdateManyWithoutAuthorInput
+  review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
+  userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
+}
+
+input UserUpdateWithoutReportDataInput {
+  active: Boolean
+  appointment: AppointmentUpdateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneWithoutUserInput
+  email: String
+  establishment: EstablishmentUpdateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
+  userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
+}
+
+input UserUpdateWithoutReviewDataInput {
+  active: Boolean
+  appointment: AppointmentUpdateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneWithoutUserInput
+  email: String
+  establishment: EstablishmentUpdateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  report: ReportUpdateManyWithoutAuthorInput
+  roles: Json
+  userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
+}
+
+input UserUpdateWithoutUserEstablishmentDataInput {
+  active: Boolean
+  appointment: AppointmentUpdateManyWithoutClientInput
+  birthdate: DateTime
+  deletedAt: DateTime
+  department: DepartmentUpdateOneWithoutUserInput
+  email: String
+  establishment: EstablishmentUpdateManyWithoutOwnerInput
+  firstname: String
+  gender: String
+  lastname: String
+  password: String
+  phoneNumber: String
+  report: ReportUpdateManyWithoutAuthorInput
+  review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
+}
+
+input UserUpdateWithWhereUniqueWithoutDepartmentInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutDepartmentDataInput!
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithoutAppointmentInput {
+  update: UserUpdateWithoutAppointmentDataInput!
+  create: UserCreateWithoutAppointmentInput!
+}
+
+input UserUpsertWithoutEstablishmentInput {
+  update: UserUpdateWithoutEstablishmentDataInput!
+  create: UserCreateWithoutEstablishmentInput!
+}
+
+input UserUpsertWithoutReportInput {
+  update: UserUpdateWithoutReportDataInput!
+  create: UserCreateWithoutReportInput!
+}
+
+input UserUpsertWithoutReviewInput {
+  update: UserUpdateWithoutReviewDataInput!
+  create: UserCreateWithoutReviewInput!
+}
+
+input UserUpsertWithoutUserEstablishmentInput {
+  update: UserUpdateWithoutUserEstablishmentDataInput!
+  create: UserCreateWithoutUserEstablishmentInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutDepartmentInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutDepartmentDataInput!
+  create: UserCreateWithoutDepartmentInput!
+}
+
+input UserWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  active: Boolean
+  active_not: Boolean
+  appointment_every: AppointmentWhereInput
+  appointment_some: AppointmentWhereInput
+  appointment_none: AppointmentWhereInput
+  birthdate: DateTime
+  birthdate_not: DateTime
+  birthdate_in: [DateTime!]
+  birthdate_not_in: [DateTime!]
+  birthdate_lt: DateTime
+  birthdate_lte: DateTime
+  birthdate_gt: DateTime
+  birthdate_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  deletedAt: DateTime
+  deletedAt_not: DateTime
+  deletedAt_in: [DateTime!]
+  deletedAt_not_in: [DateTime!]
+  deletedAt_lt: DateTime
+  deletedAt_lte: DateTime
+  deletedAt_gt: DateTime
+  deletedAt_gte: DateTime
+  department: DepartmentWhereInput
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  establishment_every: EstablishmentWhereInput
+  establishment_some: EstablishmentWhereInput
+  establishment_none: EstablishmentWhereInput
+  firstname: String
+  firstname_not: String
+  firstname_in: [String!]
+  firstname_not_in: [String!]
+  firstname_lt: String
+  firstname_lte: String
+  firstname_gt: String
+  firstname_gte: String
+  firstname_contains: String
+  firstname_not_contains: String
+  firstname_starts_with: String
+  firstname_not_starts_with: String
+  firstname_ends_with: String
+  firstname_not_ends_with: String
+  gender: String
+  gender_not: String
+  gender_in: [String!]
+  gender_not_in: [String!]
+  gender_lt: String
+  gender_lte: String
+  gender_gt: String
+  gender_gte: String
+  gender_contains: String
+  gender_not_contains: String
+  gender_starts_with: String
+  gender_not_starts_with: String
+  gender_ends_with: String
+  gender_not_ends_with: String
+  lastname: String
+  lastname_not: String
+  lastname_in: [String!]
+  lastname_not_in: [String!]
+  lastname_lt: String
+  lastname_lte: String
+  lastname_gt: String
+  lastname_gte: String
+  lastname_contains: String
+  lastname_not_contains: String
+  lastname_starts_with: String
+  lastname_not_starts_with: String
+  lastname_ends_with: String
+  lastname_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  phoneNumber: String
+  phoneNumber_not: String
+  phoneNumber_in: [String!]
+  phoneNumber_not_in: [String!]
+  phoneNumber_lt: String
+  phoneNumber_lte: String
+  phoneNumber_gt: String
+  phoneNumber_gte: String
+  phoneNumber_contains: String
+  phoneNumber_not_contains: String
+  phoneNumber_starts_with: String
+  phoneNumber_not_starts_with: String
+  phoneNumber_ends_with: String
+  phoneNumber_not_ends_with: String
+  report_every: ReportWhereInput
+  report_some: ReportWhereInput
+  report_none: ReportWhereInput
+  review_every: ReviewWhereInput
+  review_some: ReviewWhereInput
+  review_none: ReviewWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  userEstablishment_every: UserEstablishmentWhereInput
+  userEstablishment_some: UserEstablishmentWhereInput
+  userEstablishment_none: UserEstablishmentWhereInput
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input UserWhereUniqueInput {
   id: Int
   email: String
 }

@@ -5,47 +5,51 @@ var typeDefs = require("./prisma-schema").typeDefs;
 
 var models = [
   {
-    name: "day",
+    name: "Appointment",
     embedded: false
   },
   {
-    name: "appointment",
+    name: "AppointmentStatus",
     embedded: false
   },
   {
-    name: "department",
+    name: "Department",
     embedded: false
   },
   {
-    name: "establishment",
+    name: "Hour",
     embedded: false
   },
   {
-    name: "hour",
+    name: "Establishment",
     embedded: false
   },
   {
-    name: "report",
+    name: "Day",
     embedded: false
   },
   {
-    name: "review",
+    name: "Report",
     embedded: false
   },
   {
-    name: "service",
+    name: "Review",
     embedded: false
   },
   {
-    name: "typeofshift",
+    name: "Service",
     embedded: false
   },
   {
-    name: "user",
+    name: "TypeOfShift",
     embedded: false
   },
   {
-    name: "userestablishment",
+    name: "User",
+    embedded: false
+  },
+  {
+    name: "UserEstablishment",
     embedded: false
   }
 ];

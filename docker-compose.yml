@@ -5,6 +5,7 @@ services:
     image: 'postgres:12-alpine'
     volumes:
       - '../esgi-2020-5iw-pa-apiplatform/docker/postgresql/data:/var/lib/postgresql/data'
+#      - './esgi-2020-5iw-pa-apiplatform/docker/postgresql/data:/var/lib/postgresql/data'
     ports:
       - '5432:5432'
     environment:
@@ -17,8 +18,10 @@ services:
   prisma:
     image: prismagraphql/prisma:1.34
     restart: always
+    depends_on:
+      - dbtest
     ports:
-    - "4466:4466"
+      - "4466:4466"
     environment:
       PRISMA_CONFIG: |
         port: 4466

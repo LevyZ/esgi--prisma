@@ -1,107 +1,153 @@
-type day{
-    id: Int! @id
-    name: String!
-}
-
-type appointment{
-    id: Int! @id
-    createdAt: DateTime! @createdAt @db(name: "created_at")
-    deletedAt: DateTime @db(name: "deleted_at")
-    endHour: DateTime @db(name: "end_hour")
-    startHour: DateTime @db(name: "start_hour")
-    updatedAt: DateTime! @updatedAt @db(name: "updated_at")
-}
-
-type department{
+type Appointment @db(name: "appointment"){
   id: Int! @id
-  departmentCode: Int @db(name: "department_code")
+  client: User @db(name: "client_id")
+#  appointmentService: [AppointmentService]
+  appointmentStatus: AppointmentStatus @db(name: "appointment_status_id")
+  startHour: DateTime @db(name: "start_hour")
+  endHour: DateTime @db(name: "end_hour")
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  updatedAt: DateTime! @db(name: "updated_at") @updatedAt
+  establishment: Establishment @db(name: "establishment_id")
+}
+
+
+#type AppointmentService @db(name: "appointment_service") @relationTable {
+#  appointment: Appointment! @db(name: "appointment_id")
+#  service: Service! @db(name: "service_id")
+#}
+
+type AppointmentStatus @db(name: "appointment_status") {
+  id: Int! @id
   name: String
+  appointment: [Appointment]
 }
 
-type establishment {
+type Department @db(name: "department") {
   id: Int! @id
+  name: String
+  departmentCode: Int @db(name: "department_code")
+  establishment: [Establishment]
+  user: [User]
+}
+
+type Hour @db(name: "hours") {
+  id: Int! @id
+  establishment: Establishment @db(name: "establishment_id")
+  day: Day @db(name: "day_id")
+  typeOfShift: TypeOfShift @db(name: "type_of_shift_id")
+  startHour: DateTime @db(name: "start_hour")
+  endHour: DateTime @db(name: "end_hour")
+  nbBarber: Int @db(name: "nb_barber")
   active: Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  updatedAt: DateTime! @db(name: "updated_at") @updatedAt
+}
+
+type Establishment @db(name: "establishment") {
+  id: Int! @id
+  department: Department @db(name: "department_id")
+  owner: User @db(name: "owner_id")
+  commercialName: String @db(name: "commercial_name")
   address: String
   addressComplement: String @db(name: "address_complement")
   city: String
-  commercialName: String @db(name: "commercial_name")
+  zipCode: String @db(name: "zip_code")
+  siret: String
+  phoneNumber: String @db(name: "phone_number")
   contactEmail: String @db(name: "contact_email")
-  createdAt: DateTime! @createdAt @db(name: "created_at")
-  deletedAt: DateTime @db(name: "deleted_at")
-  description: String
   illustration: String
   name: String
-  phoneNumber: String @db(name: "phone_number")
-  siret: String
-  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
-  zipCode: String @db(name: "zip_code")
-}
-
-type hour @db(name: "hours"){
-  id: Int! @id
+  description: String
   active: Boolean! @default(value: false)
   createdAt: DateTime! @createdAt @db(name: "created_at")
-  endHour: DateTime @db(name: "end_hour")
-  nbBarber: Int @db(name: "nb_barber")
-  startHour: DateTime @db(name: "start_hour")
-  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  deletedAt: DateTime @db(name: "deleted_at")
+  updatedAt: DateTime! @db(name: "updated_at") @updatedAt
+  hours: [Hour]
+  report: [Report]
+  review: [Review]
+  service: [Service]
+  userEstablishment: [UserEstablishment]
+  appointment: [Appointment]
 }
 
-
-type report{
+type Day @db(name: "day") {
   id: Int! @id
-  content: String
-  createdAt: DateTime! @createdAt @db(name: "created_at")
-  deletedAt: DateTime @db(name: "deleted_at")
+  name: String!
+  hours: [Hour]
+}
+
+type Report @db(name: "report") {
+  id: Int! @id
+  author: User @db(name: "author_id")
+  establishment: Establishment @db(name: "establishment_id")
   title: String
-  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
-}
-
-type review {
-  id: Int! @id
   content: String
   createdAt: DateTime! @createdAt @db(name: "created_at")
+  updatedAt: DateTime! @db(name: "updated_at") @updatedAt
   deletedAt: DateTime @db(name: "deleted_at")
-  mark: Int
-  updatedAt: DateTime! @updatedAt @db(name: "updated_at") 
 }
 
-type service {
+type Review @db(name: "review") {
   id: Int! @id
-  active: Boolean! @default(value: false)
+  author: User @db(name: "author_id")
+  establishment: Establishment @db(name: "establishment_id")
+  mark: Int
+  content: String
   createdAt: DateTime! @createdAt @db(name: "created_at")
+  updatedAt: DateTime! @db(name: "updated_at") @updatedAt
   deletedAt: DateTime @db(name: "deleted_at")
-  duration: Int
-  illustration: String
+}
+
+type Service @db(name: "service") {
+  id: Int! @id
+  establishment: Establishment @db(name: "establishment_id")
+  createdBy: User @db(name: "created_by_id") @relation(name: "ServiceCreatedByToUserService")
+  updatedBy: User @db(name: "updated_by_id") @relation(name: "ServiceUpdatedByToUserService")
   name: String
   price: Float
-  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+  duration: Int
+  illustration: String
+  active: Boolean! @default(value: false)
+#  appointmentService: [AppointmentService]
+  createdAt: DateTime! @createdAt @db(name: "created_at")
+  updatedAt: DateTime! @db(name: "updated_at") @updatedAt
+  deletedAt: DateTime @db(name: "deleted_at")
 }
 
-type typeofshift @db(name: "type_of_shift") {
+type TypeOfShift @db(name: "type_of_shift") {
   id: Int! @id
   name: String
+  hours: [Hour]
 }
 
-type user {
+type User @db(name: "user") {
   id: Int! @id
   active: Boolean! @default(value: false)
+  appointment: [Appointment]
   birthdate: DateTime
   createdAt: DateTime! @createdAt @db(name: "created_at")
   deletedAt: DateTime @db(name: "deleted_at")
+  department: Department @db(name: "department_id")
   email: String! @unique
+  establishment: [Establishment]
   firstname: String
   gender: String
   lastname: String
   password: String!
   phoneNumber: String @db(name: "phone_number")
+  report: [Report]
+  review: [Review]
   roles: Json!
-  updatedAt: DateTime! @updatedAt @db(name: "updated_at")
+#  service: [Service] @relation(name: "ServiceCreatedByToUserService")
+  updatedAt: DateTime! @db(name: "updated_at") @updatedAt
+  userEstablishment: [UserEstablishment]
 }
 
-
-type userestablishment @db(name: "user_establishment") {
+type UserEstablishment @db(name: "user_establishment") {
   id: Int! @id
-  deletedAt: DateTime @db(name: "deleted_at")
+  manager: User @db(name: "manager_id")
+  establishment: Establishment @db(name: "establishment_id")
   validated: Boolean
+  deletedAt: DateTime @db(name: "deleted_at")
 }

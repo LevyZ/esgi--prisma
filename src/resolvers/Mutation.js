@@ -1,20 +1,29 @@
-// const { createPost, updatePost, deletePost } = require('./Mutations/mutationPost')
-// const { createUser, updateUser, deleteUser } = require('./Mutations/mutationUser')
-const { createday, updateday, deleteday } = require('./Mutations/mutationDay')
+const { login, signup } = require('./auth')
+const { createUser, updateUser, deleteUser } = require('./Mutations/mutationUser')
+const { createDay, updateDay, deleteDay } = require('./Mutations/mutationDay')
+const { createEstablishment, updateEstablishment, deleteEstablishment } = require('./Mutations/mutationEstablishment')
+const { createDepartment, updateDepartment, deleteDepartment } = require('./Mutations/mutationDepartment')
+
 
 const Mutation = {
-//     createPost,
-//    updatePost,
-//    deletePost,
+    createEstablishment,
+    updateEstablishment,
+    deleteEstablishment,
 
-    createday,
-    updateday,
-    deleteday,
+    createDay,
+    updateDay,
+    deleteDay,
 
-//    createUser,
-//    updateUser,
-//    deleteUser,
+    createDepartment,
+    updateDepartment,
+    deleteDepartment,
 
+    createUser,
+    updateUser,
+    deleteUser,
+
+    login,
+    signup
 }
 module.exports = {
     Mutation

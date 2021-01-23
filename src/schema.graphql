@@ -1,19 +1,29 @@
-# import User, Query.user, Query.users, Mutation.updateUser, Mutation.createUser, Mutation.deleteUser, from "./generated/prisma.graphql"
-# import Post, Query.post, Query.posts, Mutation.updatePost, Mutation.createPost, Mutation.deletePost, from "./generated/prisma.graphql"
+# import day, Query.day, Query.days, Mutation.updateDay, Mutation.createDay, Mutation.deleteDay, from "./generated/prisma.graphql"
+# import user, Query.user, Query.users, Mutation.updateUser, Mutation.createUser, Mutation.deleteUser, from "./generated/prisma.graphql"
+# import appointment, Query.appointment, Query.appointments, from "./generated/prisma.graphql"
+# import department, Query.department, Query.departments, Mutation.updateDepartment, Mutation.createDepartment, Mutation.deleteDepartment, from "./generated/prisma.graphql"
+# import establishment, Query.establishment, Query.establishments, Mutation.updateEstablishment, Mutation.createEstablishment, Mutation.deleteEstablishment,  from "./generated/prisma.graphql"
+# import review, Query.review, Query.reviews, from "./generated/prisma.graphql"
+# import service, Query.service, Query.services, from "./generated/prisma.graphql"
+# import userEstablishment, Query.userEstablishment, Query.userEstablishments, from "./generated/prisma.graphql"
+# import typeOfShift, Query.typeOfShift, Query.typeOfShifts, from "./generated/prisma.graphql"
+# import hour, Query.hour, Query.hours, from "./generated/prisma.graphql"
 
 
-# type day{
-#     id: ID! @unique
-#     name: String!
-# }
+type Query {
+    me: User
+}
+
+type Mutation {
+    signup(firstname: String!, lastname: String!, email: String!, phone: String, password: String!, roles: Json!, gender: String! ): AuthPayload!
+    login(email: String!, password: String!): AuthPayload!
+}
+
+type AuthPayload {
+    token: String!
+    user: User!
+}
 
 
-# type Mutation {
-#     signup(name: String!, email: String!, password: String!): AuthPayload!
-#     login(email: String!, password: String!): AuthPayload!
-# }
 
-# type AuthPayload {
-#     token: String!
-#     user: User!
-# }
+

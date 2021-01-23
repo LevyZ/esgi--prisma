@@ -4,7 +4,7 @@ const {Prisma} = require('prisma-binding');
 const resolvers = require('./resolvers');
 require('dotenv').config()
 const server = new GraphQLServer({
-    typeDefs: 'src/generated/prisma.graphql',
+    typeDefs: 'src/schema.graphql',
     resolvers,
     context: req => ({
         req,
