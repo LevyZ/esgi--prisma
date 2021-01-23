@@ -1,7 +1,6 @@
 const { forwardTo } = require('prisma-binding')
 
 async function createUser (parent, args, ctx, info) {
-    console.log(args, parent)
     return forwardTo('prisma')(parent, args, ctx, info)
 }
 

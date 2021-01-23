@@ -1,10 +1,11 @@
-const bcrypt = require('bcryptjs')
+// const bcrypt = require('bcryptjs')
+const argon2 = require('argon2');
 const jwt = require('jsonwebtoken')
 const { getUser, APP_SECRET } = require('../utils')
 
 
 async function signup (_, args, context, info) {
-    const password = await bcrypt.hash(args.password, 10);
+    const password = await argon2.hash(args.password, 10);
 
     const user = await context.prisma.mutation.createUser(
         {
@@ -14,6 +15,7 @@ async function signup (_, args, context, info) {
                 email: args.email,
                 phoneNumber: args.phoneNumber,
                 password: password,
+                roles: args.roles
             }
         }
     )
@@ -25,12 +27,13 @@ async function signup (_, args, context, info) {
 }
 
 async function login(parent, {email, password}, ctx, info) {
-    const user = await ctx.prisma.query.user({where: {email}}, '{ id name email password }')
+    const user = await ctx.prisma.query.user({where: {email}}, '{ id lastname email password }')
 
     if(!user) {
         throw new Error(`No such user found for emal: ${email}`)
     }
-    const valid = await bcrypt.compare(password, user.password)
+
+    const valid = await argon2.verify(user.password, password)
 
     if (!valid) {
         throw new Error('Invalid password')
@@ -43,6 +46,8 @@ async function login(parent, {email, password}, ctx, info) {
 }
 
 async function me (parent, args, ctx, info) {
+    console.log(parent, args, ctx, info)
+    console.log("test")
     const user = await getUser(ctx)
     return user
 }
