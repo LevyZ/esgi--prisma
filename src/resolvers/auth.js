@@ -1,4 +1,3 @@
-// const bcrypt = require('bcryptjs')
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken')
 const { getUser, APP_SECRET } = require('../utils')
@@ -45,15 +44,7 @@ async function login(parent, {email, password}, ctx, info) {
     }
 }
 
-async function me (parent, args, ctx, info) {
-    console.log(parent, args, ctx, info)
-    console.log("test")
-    const user = await getUser(ctx)
-    return user
-}
-
 module.exports = {
-    me,
     signup,
     login
 }

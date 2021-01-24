@@ -10,8 +10,21 @@
 # import hour, Query.hour, Query.hours, from "./generated/prisma.graphql"
 
 
+type UserGestionnaire{
+    id: Int!
+    birthdate: DateTime
+    department: Department
+    email: String!
+    establishment: [Establishment!]
+    firstname: String
+    gender: String
+    lastname: String
+    phoneNumber: String
+}
+
 type Query {
     me: User
+    gestionnaireInfos: UserGestionnaire
 }
 
 type Mutation {

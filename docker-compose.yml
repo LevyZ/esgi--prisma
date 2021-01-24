@@ -5,7 +5,7 @@ services:
     image: 'postgres:12-alpine'
     volumes:
       - '../esgi-2020-5iw-pa-apiplatform/docker/postgresql/data:/var/lib/postgresql/data'
-#      - './esgi-2020-5iw-pa-apiplatform/docker/postgresql/data:/var/lib/postgresql/data'
+#      - './docker/postgresql/data:/var/lib/postgresql/data'
     ports:
       - '5432:5432'
     environment:

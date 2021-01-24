@@ -8,6 +8,8 @@ const { service, services } = require('./Queries/queryService')
 const { typeOfShift, typeOfShifts } = require('./Queries/queryTypeOfShift')
 const { userEstablishment, userEstablishments } = require('./Queries/queryUserEstablishment')
 const { hour, hours } = require('./Queries/queryHours')
+const { me } = require('./Queries/Custom/me')
+const { gestionnaireInfos } = require('./Queries/Custom/queryGestionnaire')
 
 const Query = {
     user,
@@ -29,7 +31,9 @@ const Query = {
     typeOfShift,
     typeOfShifts,
     hour,
-    hours
+    hours,
+    me,
+    gestionnaireInfos
   }
 
 module.exports = {
