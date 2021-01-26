@@ -40,6 +40,17 @@ services:
             port: '5432'
             migrations: true
 
+  app:
+    build: ./
+    depends_on:
+      - prisma
+    ports:
+      - 4000:4000
+    volumes:
+      - ./:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+    stdin_open: true
+
   adminer_554:
     container_name: adminer_554-apiplatform
     image: adminer

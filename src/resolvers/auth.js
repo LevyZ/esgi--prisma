@@ -5,7 +5,6 @@ const { getUser, APP_SECRET } = require('../utils')
 
 async function signup (_, args, context, info) {
     const password = await argon2.hash(args.password, 10);
-
     const user = await context.prisma.mutation.createUser(
         {
             data: {

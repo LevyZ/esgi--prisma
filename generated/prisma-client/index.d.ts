@@ -703,8 +703,6 @@ export type UserOrderByInput =
   | "password_DESC"
   | "phoneNumber_ASC"
   | "phoneNumber_DESC"
-  | "roles_ASC"
-  | "roles_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
@@ -1667,7 +1665,6 @@ export interface UserCreateWithoutAppointmentInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportCreateManyWithoutAuthorInput>;
   review?: Maybe<ReviewCreateManyWithoutAuthorInput>;
-  roles: Json;
   userEstablishment?: Maybe<UserEstablishmentCreateManyWithoutManagerInput>;
 }
 
@@ -1739,7 +1736,6 @@ export interface UserCreateWithoutEstablishmentInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportCreateManyWithoutAuthorInput>;
   review?: Maybe<ReviewCreateManyWithoutAuthorInput>;
-  roles: Json;
   userEstablishment?: Maybe<UserEstablishmentCreateManyWithoutManagerInput>;
 }
 
@@ -1834,7 +1830,6 @@ export interface UserCreateWithoutDepartmentInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportCreateManyWithoutAuthorInput>;
   review?: Maybe<ReviewCreateManyWithoutAuthorInput>;
-  roles: Json;
   userEstablishment?: Maybe<UserEstablishmentCreateManyWithoutManagerInput>;
 }
 
@@ -1947,7 +1942,6 @@ export interface UserCreateWithoutReportInput {
   password: String;
   phoneNumber?: Maybe<String>;
   review?: Maybe<ReviewCreateManyWithoutAuthorInput>;
-  roles: Json;
   userEstablishment?: Maybe<UserEstablishmentCreateManyWithoutManagerInput>;
 }
 
@@ -2038,7 +2032,6 @@ export interface UserCreateInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportCreateManyWithoutAuthorInput>;
   review?: Maybe<ReviewCreateManyWithoutAuthorInput>;
-  roles: Json;
   userEstablishment?: Maybe<UserEstablishmentCreateManyWithoutManagerInput>;
 }
 
@@ -2124,7 +2117,6 @@ export interface UserCreateWithoutReviewInput {
   password: String;
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportCreateManyWithoutAuthorInput>;
-  roles: Json;
   userEstablishment?: Maybe<UserEstablishmentCreateManyWithoutManagerInput>;
 }
 
@@ -2229,7 +2221,6 @@ export interface UserCreateWithoutUserEstablishmentInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportCreateManyWithoutAuthorInput>;
   review?: Maybe<ReviewCreateManyWithoutAuthorInput>;
-  roles: Json;
 }
 
 export interface AppointmentUpdateInput {
@@ -2264,7 +2255,6 @@ export interface UserUpdateWithoutAppointmentDataInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportUpdateManyWithoutAuthorInput>;
   review?: Maybe<ReviewUpdateManyWithoutAuthorInput>;
-  roles?: Maybe<Json>;
   userEstablishment?: Maybe<UserEstablishmentUpdateManyWithoutManagerInput>;
 }
 
@@ -2368,7 +2358,6 @@ export interface UserUpdateWithoutEstablishmentDataInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportUpdateManyWithoutAuthorInput>;
   review?: Maybe<ReviewUpdateManyWithoutAuthorInput>;
-  roles?: Maybe<Json>;
   userEstablishment?: Maybe<UserEstablishmentUpdateManyWithoutManagerInput>;
 }
 
@@ -2520,7 +2509,6 @@ export interface UserUpdateWithoutDepartmentDataInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportUpdateManyWithoutAuthorInput>;
   review?: Maybe<ReviewUpdateManyWithoutAuthorInput>;
-  roles?: Maybe<Json>;
   userEstablishment?: Maybe<UserEstablishmentUpdateManyWithoutManagerInput>;
 }
 
@@ -2791,7 +2779,6 @@ export interface UserUpdateWithoutReportDataInput {
   password?: Maybe<String>;
   phoneNumber?: Maybe<String>;
   review?: Maybe<ReviewUpdateManyWithoutAuthorInput>;
-  roles?: Maybe<Json>;
   userEstablishment?: Maybe<UserEstablishmentUpdateManyWithoutManagerInput>;
 }
 
@@ -2928,7 +2915,6 @@ export interface UserUpdateDataInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportUpdateManyWithoutAuthorInput>;
   review?: Maybe<ReviewUpdateManyWithoutAuthorInput>;
-  roles?: Maybe<Json>;
   userEstablishment?: Maybe<UserEstablishmentUpdateManyWithoutManagerInput>;
 }
 
@@ -3060,7 +3046,6 @@ export interface UserUpdateWithoutReviewDataInput {
   password?: Maybe<String>;
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportUpdateManyWithoutAuthorInput>;
-  roles?: Maybe<Json>;
   userEstablishment?: Maybe<UserEstablishmentUpdateManyWithoutManagerInput>;
 }
 
@@ -3455,7 +3440,6 @@ export interface UserUpdateWithoutUserEstablishmentDataInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportUpdateManyWithoutAuthorInput>;
   review?: Maybe<ReviewUpdateManyWithoutAuthorInput>;
-  roles?: Maybe<Json>;
 }
 
 export interface UserUpsertWithoutUserEstablishmentInput {
@@ -4062,7 +4046,6 @@ export interface UserUpdateManyDataInput {
   lastname?: Maybe<String>;
   password?: Maybe<String>;
   phoneNumber?: Maybe<String>;
-  roles?: Maybe<Json>;
 }
 
 export interface DepartmentUpsertWithoutEstablishmentInput {
@@ -4683,7 +4666,6 @@ export interface UserUpdateInput {
   phoneNumber?: Maybe<String>;
   report?: Maybe<ReportUpdateManyWithoutAuthorInput>;
   review?: Maybe<ReviewUpdateManyWithoutAuthorInput>;
-  roles?: Maybe<Json>;
   userEstablishment?: Maybe<UserEstablishmentUpdateManyWithoutManagerInput>;
 }
 
@@ -4697,7 +4679,6 @@ export interface UserUpdateManyMutationInput {
   lastname?: Maybe<String>;
   password?: Maybe<String>;
   phoneNumber?: Maybe<String>;
-  roles?: Maybe<Json>;
 }
 
 export interface UserEstablishmentCreateInput {
@@ -4959,7 +4940,6 @@ export interface User {
   lastname?: String;
   password: String;
   phoneNumber?: String;
-  roles: Json;
   updatedAt: DateTimeOutput;
 }
 
@@ -5012,7 +4992,6 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
-  roles: () => Promise<Json>;
   updatedAt: () => Promise<DateTimeOutput>;
   userEstablishment: <T = FragmentableArray<UserEstablishment>>(args?: {
     where?: UserEstablishmentWhereInput;
@@ -5078,7 +5057,6 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
-  roles: () => Promise<AsyncIterator<Json>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   userEstablishment: <
     T = Promise<AsyncIterator<UserEstablishmentSubscription>>
@@ -5144,7 +5122,6 @@ export interface UserNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
-  roles: () => Promise<Json>;
   updatedAt: () => Promise<DateTimeOutput>;
   userEstablishment: <T = FragmentableArray<UserEstablishment>>(args?: {
     where?: UserEstablishmentWhereInput;
@@ -7181,7 +7158,6 @@ export interface UserPreviousValues {
   lastname?: String;
   password: String;
   phoneNumber?: String;
-  roles: Json;
   updatedAt: DateTimeOutput;
 }
 
@@ -7199,7 +7175,6 @@ export interface UserPreviousValuesPromise
   lastname: () => Promise<String>;
   password: () => Promise<String>;
   phoneNumber: () => Promise<String>;
-  roles: () => Promise<Json>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
@@ -7217,7 +7192,6 @@ export interface UserPreviousValuesSubscription
   lastname: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   phoneNumber: () => Promise<AsyncIterator<String>>;
-  roles: () => Promise<AsyncIterator<Json>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
@@ -7297,8 +7271,6 @@ export type String = string;
 The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 */
 export type Float = number;
-
-export type Json = any;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
