@@ -7,7 +7,6 @@ generate:
   - generator: graphql-schema
     output: ./src/generated/prisma.graphql
 
-
 hooks:
   post-deploy:
     - echo "Deployment finished"

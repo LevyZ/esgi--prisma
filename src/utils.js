@@ -14,6 +14,8 @@ async function getUser(ctx) {
     }
 }
 
+
+
 class AuthError extends Error {
     constructor() {
         super('Not authorized')
