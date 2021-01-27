@@ -138,7 +138,7 @@ type User @db(name: "user") {
   phoneNumber: String @db(name: "phone_number")
   report: [Report]
   review: [Review]
-#  roles: Json!
+  roles: Json!
 #  service: [Service] @relation(name: "ServiceCreatedByToUserService")
   updatedAt: DateTime! @db(name: "updated_at") @updatedAt
   userEstablishment: [UserEstablishment]
