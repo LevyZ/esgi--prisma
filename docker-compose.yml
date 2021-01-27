@@ -30,12 +30,12 @@ services:
         databases:
           default:
             connector: postgres
-            host: dbtest
-            database: apiplatform
+            host: ec2-52-202-185-87.compute-1.amazonaws.com
+            database: d27n9nssb4ngls
             schema: public
-            user: apiplatform
-            password: apiplatform
-            ssl: false
+            user: tykzrcqkpzfdwa
+            password: 05ec2cd2eacb91154183a2aa9dcb77587fd1e71d3926bfa8c3a32b86640cb4ed
+            ssl: true
             rawAccess: true
             port: '5432'
             migrations: true
