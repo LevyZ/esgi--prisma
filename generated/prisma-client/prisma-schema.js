@@ -2363,6 +2363,8 @@ input HourWhereUniqueInput {
   id: Int
 }
 
+scalar Json
+
 scalar Long
 
 type Mutation {
@@ -3637,6 +3639,7 @@ type User {
   phoneNumber: String
   report(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Report!]
   review(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
+  roles: Json!
   updatedAt: DateTime!
   userEstablishment(where: UserEstablishmentWhereInput, orderBy: UserEstablishmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserEstablishment!]
 }
@@ -3663,6 +3666,7 @@ input UserCreateInput {
   phoneNumber: String
   report: ReportCreateManyWithoutAuthorInput
   review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
   userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
 }
 
@@ -3716,6 +3720,7 @@ input UserCreateWithoutAppointmentInput {
   phoneNumber: String
   report: ReportCreateManyWithoutAuthorInput
   review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
   userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
 }
 
@@ -3734,6 +3739,7 @@ input UserCreateWithoutDepartmentInput {
   phoneNumber: String
   report: ReportCreateManyWithoutAuthorInput
   review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
   userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
 }
 
@@ -3752,6 +3758,7 @@ input UserCreateWithoutEstablishmentInput {
   phoneNumber: String
   report: ReportCreateManyWithoutAuthorInput
   review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
   userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
 }
 
@@ -3770,6 +3777,7 @@ input UserCreateWithoutReportInput {
   password: String!
   phoneNumber: String
   review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
   userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
 }
 
@@ -3788,6 +3796,7 @@ input UserCreateWithoutReviewInput {
   password: String!
   phoneNumber: String
   report: ReportCreateManyWithoutAuthorInput
+  roles: Json!
   userEstablishment: UserEstablishmentCreateManyWithoutManagerInput
 }
 
@@ -3807,6 +3816,7 @@ input UserCreateWithoutUserEstablishmentInput {
   phoneNumber: String
   report: ReportCreateManyWithoutAuthorInput
   review: ReviewCreateManyWithoutAuthorInput
+  roles: Json!
 }
 
 type UserEdge {
@@ -4055,6 +4065,8 @@ enum UserOrderByInput {
   password_DESC
   phoneNumber_ASC
   phoneNumber_DESC
+  roles_ASC
+  roles_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -4071,6 +4083,7 @@ type UserPreviousValues {
   lastname: String
   password: String!
   phoneNumber: String
+  roles: Json!
   updatedAt: DateTime!
 }
 
@@ -4239,6 +4252,7 @@ input UserUpdateDataInput {
   phoneNumber: String
   report: ReportUpdateManyWithoutAuthorInput
   review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
   userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
 }
 
@@ -4257,6 +4271,7 @@ input UserUpdateInput {
   phoneNumber: String
   report: ReportUpdateManyWithoutAuthorInput
   review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
   userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
 }
 
@@ -4270,6 +4285,7 @@ input UserUpdateManyDataInput {
   lastname: String
   password: String
   phoneNumber: String
+  roles: Json
 }
 
 input UserUpdateManyMutationInput {
@@ -4282,6 +4298,7 @@ input UserUpdateManyMutationInput {
   lastname: String
   password: String
   phoneNumber: String
+  roles: Json
 }
 
 input UserUpdateManyWithoutDepartmentInput {
@@ -4369,6 +4386,7 @@ input UserUpdateWithoutAppointmentDataInput {
   phoneNumber: String
   report: ReportUpdateManyWithoutAuthorInput
   review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
   userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
 }
 
@@ -4386,6 +4404,7 @@ input UserUpdateWithoutDepartmentDataInput {
   phoneNumber: String
   report: ReportUpdateManyWithoutAuthorInput
   review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
   userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
 }
 
@@ -4403,6 +4422,7 @@ input UserUpdateWithoutEstablishmentDataInput {
   phoneNumber: String
   report: ReportUpdateManyWithoutAuthorInput
   review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
   userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
 }
 
@@ -4420,6 +4440,7 @@ input UserUpdateWithoutReportDataInput {
   password: String
   phoneNumber: String
   review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
   userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
 }
 
@@ -4437,6 +4458,7 @@ input UserUpdateWithoutReviewDataInput {
   password: String
   phoneNumber: String
   report: ReportUpdateManyWithoutAuthorInput
+  roles: Json
   userEstablishment: UserEstablishmentUpdateManyWithoutManagerInput
 }
 
@@ -4455,6 +4477,7 @@ input UserUpdateWithoutUserEstablishmentDataInput {
   phoneNumber: String
   report: ReportUpdateManyWithoutAuthorInput
   review: ReviewUpdateManyWithoutAuthorInput
+  roles: Json
 }
 
 input UserUpdateWithWhereUniqueWithoutDepartmentInput {

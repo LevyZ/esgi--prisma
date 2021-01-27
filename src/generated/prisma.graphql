@@ -2834,8 +2834,9 @@ type ReviewConnection {
 }
 
 input ReviewCreateInput {
-  author: UserWhereUniqueInput
-  establishment: EstablishmentWhereUniqueInput
+  id: Int
+  author: UserCreateOneWithoutReviewInput
+  establishment: EstablishmentCreateOneWithoutReviewInput
   mark: Int
   content: String
   deletedAt: DateTime
@@ -2861,7 +2862,7 @@ input ReviewCreateWithoutAuthorInput {
 
 input ReviewCreateWithoutEstablishmentInput {
   id: Int
-  author: UserWhereUniqueInput
+  author: UserCreateOneWithoutReviewInput
   mark: Int
   content: String
   deletedAt: DateTime
