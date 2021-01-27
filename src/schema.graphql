@@ -28,7 +28,7 @@ type Query {
 }
 
 type Mutation {
-    signup(firstname: String!, lastname: String!, email: String!, phone: String, password: String!, roles: Json!, gender: String! ): AuthPayload!
+    signup(firstname: String!, lastname: String!, email: String!, phone: String, password: String!, gender: String! ): AuthPayload!
     login(email: String!, password: String!): AuthPayload!
     createReview(establishment: EstablishmentWhereUniqueInput!, mark: Int, content: String): Review
     deleteReview(where: ReviewWhereUniqueInput!): Review
