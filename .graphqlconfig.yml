@@ -3,7 +3,7 @@ projects:
     schemaPath: ./src/schema.graphql
     extensions:
       endpoints:
-        default: https://esgi-5iw-prisma-246eaec205.herokuapp.com/
+        default: https://eu1.prisma.sh/levyzire-f6efe1/demo/dev
   prisma:
     schemaPath: ./src/generated/prisma.graphql
     extensions:
